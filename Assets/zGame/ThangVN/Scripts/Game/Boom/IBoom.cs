@@ -9,9 +9,9 @@ public abstract class IBoom : MonoBehaviour
 
     }
 
-    public virtual void Spawn()
+    public virtual void Init(Vector3 spawnPos)
     {
-
+        transform.position = spawnPos;
     }
     public virtual void Execute()
     {

@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.EditorTools;
 using UnityEngine;
 
 public class LogicGround : MonoBehaviour
@@ -8,7 +9,14 @@ public class LogicGround : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Boom"))
         {
-            Debug.Log(collision.gameObject.name + " collision");
+            if (collision.gameObject.GetComponent<BigBoom>() != null)
+            {
+                Debug.Log("BIG BOOM");
+            }
+            if (collision.gameObject.GetComponent<DoubleBoom>() != null)
+            {
+                Debug.Log("DoubleBoom BOOM");
+            }
             StartCoroutine(PlayAnimBoom(collision.gameObject));
         }
     }

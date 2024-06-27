@@ -4,43 +4,43 @@ using UnityEngine;
 
 public class ObjectPool<T> : MonoBehaviour where T : Component
 {
-    public GameObject parent;
-    public static ObjectPool<T> Instance;
-    public List<T> pooledObjects;
-    public T prefab;
-    public int amountPrefab;
+    private List<T> pool;
+    private T prefab;
+    private Transform parent;
 
-    void Awake()
+    public ObjectPool(T prefab, int initialSize, Transform parent = null)
     {
-        Instance = this;
-    }
+        this.prefab = prefab;
+        this.parent = parent;
+        pool = new List<T>();
 
-    void Start()
-    {
-        pooledObjects = new List<T>();
-        T tmp;
-        for (int i = 0; i < amountPrefab; i++)
+        for (int i = 0; i < initialSize; i++)
         {
-            tmp = Instantiate(prefab, parent.transform);
-            tmp.gameObject.SetActive(false);
-            pooledObjects.Add(tmp);
+            T obj = GameObject.Instantiate(prefab, parent);
+            obj.gameObject.SetActive(false);
+            pool.Add(obj);
         }
     }
 
-    public T GetPooledObject()
+    public T GetObject()
     {
-        for (int i = 0; i < amountPrefab; i++)
+        foreach (T obj in pool)
         {
-            if (!pooledObjects[i].gameObject.activeInHierarchy)
+            if (!obj.gameObject.activeInHierarchy)
             {
-                return pooledObjects[i];
+                obj.gameObject.SetActive(true);
+                return obj;
             }
         }
 
-        T tmp = Instantiate(prefab, parent.transform);
-        tmp.gameObject.SetActive(false);
-        pooledObjects.Add(tmp);
-        return tmp;
+        T newObj = GameObject.Instantiate(prefab, parent);
+        pool.Add(newObj);
+        return newObj;
+    }
+
+    public void ReturnObject(T obj)
+    {
+        obj.gameObject.SetActive(false);
     }
 }
 
