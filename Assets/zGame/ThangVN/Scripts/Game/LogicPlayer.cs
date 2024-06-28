@@ -7,6 +7,7 @@ public class LogicPlayer : MonoBehaviour
 {
     public float offSetSpeed = 1f;
     public Material matBG;
+ 
     private void Update()
     {
         if (Input.GetKey(KeyCode.D))

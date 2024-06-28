@@ -1,23 +1,36 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEditor.EditorTools;
 using UnityEngine;
 
 public class LogicGround : MonoBehaviour
 {
-    private void OnCollisionEnter(Collision collision)
+    //private void OnCollisionEnter(Collision collision)
+    //{
+    //    if (collision.transform.parent.gameObject.CompareTag("Boom"))
+    //    {
+    //        Debug.Log(collision.transform.parent.gameObject.name);
+    //        StartCoroutine(PlayAnimBoom(collision.transform.parent.gameObject));
+
+
+    //        //if (collision.transform.parent.gameObject.GetComponent<BigBoom>() != null)
+    //        //{
+    //        //    Debug.Log("BIG BOOM");
+    //        //}
+    //        //if (collision.transform.parent.gameObject.GetComponent<DoubleBoom>() != null)
+    //        //{
+    //        //    Debug.Log("DoubleBoom BOOM");
+    //        //}
+    //    }
+    //}
+
+    private void OnTriggerEnter(Collider other)
     {
-        if (collision.gameObject.CompareTag("Boom"))
+        if (other.transform.parent.gameObject.CompareTag("Boom"))
         {
-            if (collision.gameObject.GetComponent<BigBoom>() != null)
-            {
-                Debug.Log("BIG BOOM");
-            }
-            if (collision.gameObject.GetComponent<DoubleBoom>() != null)
-            {
-                Debug.Log("DoubleBoom BOOM");
-            }
-            StartCoroutine(PlayAnimBoom(collision.gameObject));
+            Debug.Log(other.transform.parent.gameObject.name);
+            StartCoroutine(PlayAnimBoom(other.transform.parent.gameObject));
         }
     }
 

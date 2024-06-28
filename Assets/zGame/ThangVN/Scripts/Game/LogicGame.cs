@@ -31,8 +31,7 @@ public class LogicGame : MonoBehaviour
 
     //[SerializeField] float timeSpawnBoomSpecial = -1f;
     [SerializeField] public static float timerCount;
-    [SerializeField] float totalTimeInWave = 3f;
-    [SerializeField] float offSet = 3f;
+
 
     private void Start()
     {
@@ -95,33 +94,56 @@ public class LogicGame : MonoBehaviour
     }
 
     bool isSpawning;
+    [SerializeField] float totalTimeInWave = 3f;
+    [SerializeField] float offSet = 3f;
+    [SerializeField] float offsetInPair = 1f;
+    [SerializeField] float offsetBetweenPairs = 3f;
+    int countDiff = 0;
     private IEnumerator SpawnSingleBoom()
     {
-        int index1 = UnityEngine.Random.Range(0, listContaineListSpawn.Count);
-
         isSpawning = true;
-        int count = listContaineListSpawn[index1].listPos.Count;
 
-        for (int i = 0; i < count; i++)
+        int index = countDiff % 3;
+        countDiff++;
+        if (countDiff > 3) countDiff = 0;
+        //List<Transform> spawnPositions = listContaineListSpawn[index].listPos;
+        //int numberOfPairs = spawnPositions.Count / 2;
+
+        int countAll = 20;
+        int numberOfPairs = 20 / 2;
+
+        //int count = listContaineListSpawn[index].listPos.Count;
+
+        for (int i = 0; i < numberOfPairs; i++)
         {
-            SingleBoom singleBoom = boomManager.GetSingleBoom();
-            Vector3 spawnPos = new Vector3(listContaineListSpawn[index1].startPos.position.x + i * offSet, listContaineListSpawn[index1].startPos.position.y, 0);
-            singleBoom.Init(spawnPos);
-
-            yield return new WaitForSeconds(totalTimeInWave / count);
+            for (int j = 0; j < 2; j++)
+            {
+                int posIndex = i * 2 + j;
+                //if (posIndex < spawnPositions.Count)
+                if (posIndex < countAll)
+                {
+                    SingleBoom singleBoom = boomManager.GetSingleBoom();
+                    float xPos = listContaineListSpawn[index].startPos.position.x + i * offsetBetweenPairs + j * offsetInPair;
+                    Vector3 spawnPos = new Vector3(xPos, listContaineListSpawn[index].startPos.position.y, 0);
+                    singleBoom.Init(spawnPos);
+                }
+            }
+            yield return new WaitForSeconds(totalTimeInWave / numberOfPairs);
         }
 
-        //int index2 = UnityEngine.Random.Range(0, listContaineListSpawn.Count);
-
-        //for (int i = 0; i < listContaineListSpawn[index2].listPos.Count; i++)
-        //{
-        //    DoubleBoom doubleBoom = boomManager.GetDoubleBoom();
-        //    Vector3 spawnPos = new Vector3(listContaineListSpawn[index2].startPos.position.x + i * offSet, listContaineListSpawn[index2].startPos.position.y, 0);
-        //    doubleBoom.Init(spawnPos);
-        //    listBoom.Add(doubleBoom);
-
-        //    yield return new WaitForSeconds(0.5f);
-        //}
+        //if (spawnPositions.Count % 2 != 0)
+        if (countAll % 2 != 0)
+        {
+            //int lastIndex = spawnPositions.Count - 1;
+            int lastIndex = countAll - 1;
+            SingleBoom singleBoom = boomManager.GetSingleBoom();
+            Vector3 spawnPos = new Vector3(
+                listContaineListSpawn[index].startPos.position.x + lastIndex * offSet,
+                listContaineListSpawn[index].startPos.position.y,
+                0
+            );
+            singleBoom.Init(spawnPos);
+        }
 
         isSpawning = false;
     }
@@ -162,5 +184,4 @@ public class LogicGame : MonoBehaviour
 
         isSpawning = false;
     }
-
 }
