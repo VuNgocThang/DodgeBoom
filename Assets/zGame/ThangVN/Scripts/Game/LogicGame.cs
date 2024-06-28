@@ -3,6 +3,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static UnityEngine.Rendering.VolumeComponent;
 
 [Serializable]
 public class ListSpawnPos
@@ -12,8 +13,16 @@ public class ListSpawnPos
     public Transform startPos;
 }
 
+public enum TypeBoom
+{
+    singleBoom,
+    doubleBoom,
+    bigBoom,
+}
+
 public class LogicGame : MonoBehaviour
 {
+    public TypeBoom typeBoom;
     [SerializeField] float timeSpawn = -1f;
     [SerializeField] List<ListSpawnPos> listContaineListSpawn;
     [SerializeField] LogicPlayer player;
@@ -23,6 +32,7 @@ public class LogicGame : MonoBehaviour
     //[SerializeField] float timeSpawnBoomSpecial = -1f;
     [SerializeField] public static float timerCount;
     [SerializeField] float totalTimeInWave = 3f;
+    [SerializeField] float offSet = 3f;
 
     private void Start()
     {
@@ -43,9 +53,20 @@ public class LogicGame : MonoBehaviour
 
             if (!isSpawning)
             {
+                if (typeBoom == TypeBoom.singleBoom)
+                {
+                    StartCoroutine(SpawnSingleBoom());
+                }
+                else if (typeBoom == TypeBoom.doubleBoom)
+                {
+                    StartCoroutine(SpawnDoubleBoom());
+                }
+                else if (typeBoom == TypeBoom.bigBoom)
+                {
+                    StartCoroutine(SpawnBoomBig());
+                }
                 //if (timerCount < 20f)
                 //{
-                StartCoroutine(SpawnBooms());
                 //}
                 //else
                 //{
@@ -74,7 +95,7 @@ public class LogicGame : MonoBehaviour
     }
 
     bool isSpawning;
-    private IEnumerator SpawnBooms()
+    private IEnumerator SpawnSingleBoom()
     {
         int index1 = UnityEngine.Random.Range(0, listContaineListSpawn.Count);
 
@@ -84,9 +105,8 @@ public class LogicGame : MonoBehaviour
         for (int i = 0; i < count; i++)
         {
             SingleBoom singleBoom = boomManager.GetSingleBoom();
-            Vector3 spawnPos = new Vector3(listContaineListSpawn[index1].startPos.position.x + i * 3f, listContaineListSpawn[index1].startPos.position.y, 0);
+            Vector3 spawnPos = new Vector3(listContaineListSpawn[index1].startPos.position.x + i * offSet, listContaineListSpawn[index1].startPos.position.y, 0);
             singleBoom.Init(spawnPos);
-            listBoom.Add(singleBoom);
 
             yield return new WaitForSeconds(totalTimeInWave / count);
         }
@@ -96,7 +116,7 @@ public class LogicGame : MonoBehaviour
         //for (int i = 0; i < listContaineListSpawn[index2].listPos.Count; i++)
         //{
         //    DoubleBoom doubleBoom = boomManager.GetDoubleBoom();
-        //    Vector3 spawnPos = new Vector3(listContaineListSpawn[index2].startPos.position.x + i * 3f, listContaineListSpawn[index2].startPos.position.y, 0);
+        //    Vector3 spawnPos = new Vector3(listContaineListSpawn[index2].startPos.position.x + i * offSet, listContaineListSpawn[index2].startPos.position.y, 0);
         //    doubleBoom.Init(spawnPos);
         //    listBoom.Add(doubleBoom);
 
@@ -106,22 +126,41 @@ public class LogicGame : MonoBehaviour
         isSpawning = false;
     }
 
-    //private IEnumerator SpawnBoomBig()
-    //{
-    //    int index = UnityEngine.Random.Range(0, listContaineListSpawn.Count);
+    private IEnumerator SpawnBoomBig()
+    {
+        int index = UnityEngine.Random.Range(0, listContaineListSpawn.Count);
+        isSpawning = true;
+        int count = listContaineListSpawn[index].listPos.Count;
 
-    //    isSpawning = true;
-    //    for (int i = 0; i < listContaineListSpawn[index].listPos.Count; i++)
-    //    {
-    //        BigBoom bigBoom = boomManager.GetBigBoom();
-    //        Vector3 spawnPos = new Vector3(listContaineListSpawn[index].startPos.position.x + i * 3f, listContaineListSpawn[index].startPos.position.y, 0);
-    //        bigBoom.Init(spawnPos);
-    //        listBoom.Add(bigBoom);
-    //        yield return new WaitForSeconds(0.7f);
-    //    }
-    //    isSpawning = false;
-    //}
+        for (int i = 0; i < count; i++)
+        {
+            BigBoom bigBoom = boomManager.GetBigBoom();
+            Vector3 spawnPos = new Vector3(listContaineListSpawn[index].startPos.position.x + i * offSet, listContaineListSpawn[index].startPos.position.y, 0);
+            bigBoom.Init(spawnPos);
+            yield return new WaitForSeconds(totalTimeInWave / count);
+        }
+        isSpawning = false;
+    }
 
+    private IEnumerator SpawnDoubleBoom()
+    {
+        int index1 = UnityEngine.Random.Range(0, listContaineListSpawn.Count);
 
+        isSpawning = true;
+        int count = listContaineListSpawn[index1].listPos.Count;
+
+        int index2 = UnityEngine.Random.Range(0, listContaineListSpawn.Count);
+
+        for (int i = 0; i < listContaineListSpawn[index2].listPos.Count; i++)
+        {
+            DoubleBoom doubleBoom = boomManager.GetDoubleBoom();
+            Vector3 spawnPos = new Vector3(listContaineListSpawn[index2].startPos.position.x + i * offSet, listContaineListSpawn[index2].startPos.position.y, 0);
+            doubleBoom.Init(spawnPos);
+
+            yield return new WaitForSeconds(totalTimeInWave / count);
+        }
+
+        isSpawning = false;
+    }
 
 }
