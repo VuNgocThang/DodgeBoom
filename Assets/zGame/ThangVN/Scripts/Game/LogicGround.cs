@@ -1,36 +1,35 @@
+using DG.Tweening;
 using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
-using UnityEditor.EditorTools;
 using UnityEngine;
 
 public class LogicGround : MonoBehaviour
 {
-    //private void OnCollisionEnter(Collision collision)
-    //{
-    //    if (collision.transform.parent.gameObject.CompareTag("Boom"))
-    //    {
-    //        Debug.Log(collision.transform.parent.gameObject.name);
-    //        StartCoroutine(PlayAnimBoom(collision.transform.parent.gameObject));
-
-
-    //        //if (collision.transform.parent.gameObject.GetComponent<BigBoom>() != null)
-    //        //{
-    //        //    Debug.Log("BIG BOOM");
-    //        //}
-    //        //if (collision.transform.parent.gameObject.GetComponent<DoubleBoom>() != null)
-    //        //{
-    //        //    Debug.Log("DoubleBoom BOOM");
-    //        //}
-    //    }
-    //}
-
     private void OnTriggerEnter(Collider other)
     {
+        if (!other.transform.parent.gameObject.CompareTag("Boom")) return;
+
         if (other.transform.parent.gameObject.CompareTag("Boom"))
         {
             Debug.Log(other.transform.parent.gameObject.name);
+            Vector3 newPos = other.transform.parent.transform.position;
             StartCoroutine(PlayAnimBoom(other.transform.parent.gameObject));
+            SingleBoom boom = other.transform.parent.gameObject.GetComponent<SingleBoom>();
+            if (boom != null)
+            {
+                if (boom.energy.gameObject.activeSelf)
+                {
+                    Debug.Log("Spawn energy");
+                    Energy energy = CustomPoolController.Instance.GetEnergy();
+                    energy.transform.position = newPos;
+                }
+
+                if (boom.coin.gameObject.activeSelf)
+                {
+                    Debug.Log("Spawn coin");
+                    Coin coin = CustomPoolController.Instance.GetCoin();
+                    coin.transform.position = newPos;
+                }
+            }
         }
     }
 

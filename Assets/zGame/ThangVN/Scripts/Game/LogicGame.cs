@@ -3,7 +3,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using static UnityEngine.Rendering.VolumeComponent;
+
 
 [Serializable]
 public class ListSpawnPos
@@ -26,7 +26,7 @@ public class LogicGame : MonoBehaviour
     [SerializeField] float timeSpawn = -1f;
     [SerializeField] List<ListSpawnPos> listContaineListSpawn;
     [SerializeField] LogicPlayer player;
-    [SerializeField] BoomManager boomManager;
+    [SerializeField] CustomPoolController poolManager;
     public List<IBoom> listBoom;
 
     //[SerializeField] float timeSpawnBoomSpecial = -1f;
@@ -122,11 +122,13 @@ public class LogicGame : MonoBehaviour
                 //if (posIndex < spawnPositions.Count)
                 if (posIndex < countAll)
                 {
-                    SingleBoom singleBoom = boomManager.GetSingleBoom();
+                    SingleBoom singleBoom = poolManager.GetSingleBoom();
                     float xPos = listContaineListSpawn[index].startPos.position.x + i * offsetBetweenPairs + j * offsetInPair;
                     Vector3 spawnPos = new Vector3(xPos, listContaineListSpawn[index].startPos.position.y, 0);
                     singleBoom.Init(spawnPos);
                 }
+
+                //yield return new WaitForSeconds(0.1f);
             }
             yield return new WaitForSeconds(totalTimeInWave / numberOfPairs);
         }
@@ -136,7 +138,7 @@ public class LogicGame : MonoBehaviour
         {
             //int lastIndex = spawnPositions.Count - 1;
             int lastIndex = countAll - 1;
-            SingleBoom singleBoom = boomManager.GetSingleBoom();
+            SingleBoom singleBoom = poolManager.GetSingleBoom();
             Vector3 spawnPos = new Vector3(
                 listContaineListSpawn[index].startPos.position.x + lastIndex * offSet,
                 listContaineListSpawn[index].startPos.position.y,
@@ -156,7 +158,7 @@ public class LogicGame : MonoBehaviour
 
         for (int i = 0; i < count; i++)
         {
-            BigBoom bigBoom = boomManager.GetBigBoom();
+            BigBoom bigBoom = poolManager.GetBigBoom();
             Vector3 spawnPos = new Vector3(listContaineListSpawn[index].startPos.position.x + i * offSet, listContaineListSpawn[index].startPos.position.y, 0);
             bigBoom.Init(spawnPos);
             yield return new WaitForSeconds(totalTimeInWave / count);
@@ -175,7 +177,7 @@ public class LogicGame : MonoBehaviour
 
         for (int i = 0; i < listContaineListSpawn[index2].listPos.Count; i++)
         {
-            DoubleBoom doubleBoom = boomManager.GetDoubleBoom();
+            DoubleBoom doubleBoom = poolManager.GetDoubleBoom();
             Vector3 spawnPos = new Vector3(listContaineListSpawn[index2].startPos.position.x + i * offSet, listContaineListSpawn[index2].startPos.position.y, 0);
             doubleBoom.Init(spawnPos);
 

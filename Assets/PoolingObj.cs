@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Dev_ChickenMerge
 {
-    public class PoolingObj : PoolManager
+    public class PoolingObj : CustomPoolManager
     {
         public static PoolingObj ins;
         public List<GameObject> listProjectile = new List<GameObject>();

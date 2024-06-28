@@ -16,7 +16,7 @@ namespace Dev_ChickenMerge
         public List<DataToolEnemy> dataToolEnemies = new List<DataToolEnemy>();
     }
 
-    public class MonsterSpawnController : PoolManager
+    public class MonsterSpawnController : CustomPoolManager
     {
         public static MonsterSpawnController ins;
         public Transform pointPool;

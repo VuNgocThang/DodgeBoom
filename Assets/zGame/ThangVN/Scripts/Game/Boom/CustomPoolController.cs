@@ -2,21 +2,34 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BoomManager : MonoBehaviour
+public class CustomPoolController : MonoBehaviour
 {
+    public static CustomPoolController Instance;
+
     public SingleBoom singleBoomPrefab;
     public DoubleBoom doubleBoomPrefab;
     public BigBoom bigBoomPrefab;
+    public Coin coinPrefab;
+    public Energy energyPrefab;
 
     private ObjectPool<SingleBoom> singleBoomPool;
     private ObjectPool<DoubleBoom> doubleBoomPool;
     private ObjectPool<BigBoom> bigBoomPool;
+    private ObjectPool<Coin> coinPool;
+    private ObjectPool<Energy> energyPool;
+
+    private void Awake()
+    {
+        Instance = this;
+    }
 
     void Start()
     {
         singleBoomPool = new ObjectPool<SingleBoom>(singleBoomPrefab, 10);
         doubleBoomPool = new ObjectPool<DoubleBoom>(doubleBoomPrefab, 10);
         bigBoomPool = new ObjectPool<BigBoom>(bigBoomPrefab, 10);
+        coinPool = new ObjectPool<Coin>(coinPrefab, 10);
+        energyPool = new ObjectPool<Energy>(energyPrefab, 10);
     }
 
     public SingleBoom GetSingleBoom()
@@ -34,6 +47,16 @@ public class BoomManager : MonoBehaviour
         return bigBoomPool.GetObject();
     }
 
+    public Coin GetCoin()
+    {
+        return coinPool.GetObject();
+    }
+
+    public Energy GetEnergy()
+    {
+        return energyPool.GetObject();
+    }
+
     public void ReturnSingleBoom(SingleBoom singleBoom)
     {
         singleBoomPool.ReturnObject(singleBoom);
@@ -47,5 +70,15 @@ public class BoomManager : MonoBehaviour
     public void ReturnBigBoom(BigBoom bigBoom)
     {
         bigBoomPool.ReturnObject(bigBoom);
+    }
+
+    public void ReturnCoin(Coin coin)
+    {
+        coinPool.ReturnObject(coin);
+    }
+
+    public void ReturnEnergy(Energy energy)
+    {
+        energyPool.ReturnObject(energy);
     }
 }

@@ -56,4 +56,39 @@ public static class SaveGame
             return level;
         }
     }
+
+    const string COIN = "COIN";
+    static int coin = -1;
+
+    public static int Coin
+    {
+        set
+        {
+            ES3.Save(COIN, value);
+            coin = value;
+        }
+        get
+        {
+            if (coin == -1) coin = ES3.Load(COIN, 0);
+            return coin;
+        }
+    }
+
+    const string ENERGY = "ENERGY";
+    static int energy = -1;
+
+    public static int Energy
+    {
+        set
+        {
+            ES3.Save(ENERGY, value);
+            energy = value;
+        }
+        get
+        {
+            if (energy == -1) energy = ES3.Load(ENERGY, 0);
+            return energy;
+        }
+    }
+
 }

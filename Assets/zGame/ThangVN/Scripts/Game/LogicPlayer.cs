@@ -7,7 +7,8 @@ public class LogicPlayer : MonoBehaviour
 {
     public float offSetSpeed = 1f;
     public Material matBG;
- 
+    public GameObject cover;
+
     private void Update()
     {
         if (Input.GetKey(KeyCode.D))
@@ -15,7 +16,7 @@ public class LogicPlayer : MonoBehaviour
             if (transform.position.x < 10f)
             {
                 transform.DOMoveX(transform.position.x + 0.2f * offSetSpeed, 0.1f * offSetSpeed);
-                //matBG.mainTextureOffset -= new Vector2(0.01f, 0f);
+                matBG.mainTextureOffset -= new Vector2(0.01f, 0f);
             }
         }
 
@@ -24,7 +25,7 @@ public class LogicPlayer : MonoBehaviour
             if (transform.position.x > -10f)
             {
                 transform.DOMoveX(transform.position.x - 0.2f * offSetSpeed, 0.1f * offSetSpeed);
-                //matBG.mainTextureOffset += new Vector2(0.01f, 0f);
+                matBG.mainTextureOffset += new Vector2(0.01f, 0f);
             }
         }
 

@@ -7,11 +7,7 @@ public class SingleBoom : IBoom
     public Transform energy;
     public Transform coin;
 
-    public List<int> listRatio = new List<int>()
-    {
-        20,
-        40
-    };
+    public List<int> listRatio;
     public override void Init(Vector3 spawnPos)
     {
         base.Init(spawnPos);

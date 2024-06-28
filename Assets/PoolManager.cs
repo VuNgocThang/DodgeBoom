@@ -12,7 +12,7 @@ public class Pool
     public Transform parentSpawn;
 
 }
-public class PoolManager : MonoBehaviour
+public class CustomPoolManager : MonoBehaviour
 {
     public List<Pool> listPool = new List<Pool>();
     public void SetUpInit(GameObject prefab, int amount, Transform parentSpawn = null)
