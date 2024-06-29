@@ -22,6 +22,7 @@ public enum TypeBoom
 
 public class LogicGame : MonoBehaviour
 {
+    public static LogicGame Instance;
     public TypeBoom typeBoom;
     [SerializeField] float timeSpawn = -1f;
     [SerializeField] List<ListSpawnPos> listContaineListSpawn;
@@ -32,10 +33,25 @@ public class LogicGame : MonoBehaviour
     //[SerializeField] float timeSpawnBoomSpecial = -1f;
     [SerializeField] public static float timerCount;
 
+    public CustomPool<ParticleSystem> singleBoomPool;
+    public CustomPool<ParticleSystem> bigBoomPool;
+    public CustomPool<ParticleSystem> fireBoomPool;
+
+    [SerializeField] private ParticleSystem singleBoomPrefab;
+    [SerializeField] private ParticleSystem bigBoomPrefab;
+    [SerializeField] private ParticleSystem fireBoomPrefab;
+
+    private void Awake()
+    {
+        Instance = this;
+    }
 
     private void Start()
     {
         timerCount = 0f;
+        singleBoomPool = new CustomPool<ParticleSystem>(singleBoomPrefab, 5, transform, false);
+        bigBoomPool = new CustomPool<ParticleSystem>(bigBoomPrefab, 5, transform, false);
+        fireBoomPool = new CustomPool<ParticleSystem>(fireBoomPrefab, 5, transform, false);
     }
 
     private void Update()

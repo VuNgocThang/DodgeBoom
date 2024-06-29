@@ -12,7 +12,7 @@ public class LogicGround : MonoBehaviour
         {
             Debug.Log(other.transform.parent.gameObject.name);
             Vector3 newPos = other.transform.parent.transform.position;
-            StartCoroutine(PlayAnimBoom(other.transform.parent.gameObject));
+            LogicGame.Instance.bigBoomPool.Spawn(newPos, true);
             SingleBoom boom = other.transform.parent.gameObject.GetComponent<SingleBoom>();
             if (boom != null)
             {
@@ -30,6 +30,7 @@ public class LogicGround : MonoBehaviour
                     coin.transform.position = newPos;
                 }
             }
+            StartCoroutine(PlayAnimBoom(other.transform.parent.gameObject));
         }
     }
 

@@ -5,6 +5,7 @@ using UnityEngine;
 public class CustomPoolController : MonoBehaviour
 {
     public static CustomPoolController Instance;
+    public Transform parent;
 
     public SingleBoom singleBoomPrefab;
     public DoubleBoom doubleBoomPrefab;
@@ -25,11 +26,11 @@ public class CustomPoolController : MonoBehaviour
 
     void Start()
     {
-        singleBoomPool = new ObjectPool<SingleBoom>(singleBoomPrefab, 10);
-        doubleBoomPool = new ObjectPool<DoubleBoom>(doubleBoomPrefab, 10);
-        bigBoomPool = new ObjectPool<BigBoom>(bigBoomPrefab, 10);
-        coinPool = new ObjectPool<Coin>(coinPrefab, 10);
-        energyPool = new ObjectPool<Energy>(energyPrefab, 10);
+        singleBoomPool = new ObjectPool<SingleBoom>(singleBoomPrefab, 10, parent);
+        doubleBoomPool = new ObjectPool<DoubleBoom>(doubleBoomPrefab, 10, parent);
+        bigBoomPool = new ObjectPool<BigBoom>(bigBoomPrefab, 10, parent);
+        coinPool = new ObjectPool<Coin>(coinPrefab, 10, parent);
+        energyPool = new ObjectPool<Energy>(energyPrefab, 10, parent);
     }
 
     public SingleBoom GetSingleBoom()

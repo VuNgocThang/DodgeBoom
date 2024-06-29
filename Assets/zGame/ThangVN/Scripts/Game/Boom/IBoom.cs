@@ -20,16 +20,16 @@ public abstract class IBoom : MonoBehaviour
 
     }
 
-    //if (transform != null)
-    //{
-    //    transform.DORotate(new Vector3(transform.localEulerAngles.x + 180f, transform.eulerAngles.y, transform.localEulerAngles.z), 0.2f, RotateMode.Fast);
-    //}
-
     public virtual void Update()
     {
         Vector3 newPosition = transform.position;
         newPosition.y -= 1f * offSetSpeed * Time.deltaTime;
         transform.position = newPosition;
+
+        //if (transform != null)
+        //{
+        //    transform.DORotate(new Vector3(transform.localEulerAngles.x + 180f, transform.eulerAngles.y, transform.localEulerAngles.z), 0.2f, RotateMode.Fast);
+        //}
         //transform.DOMoveY(transform.position.y - 0.1f * offSetSpeed, 0.1f * offSetSpeed);
     }
 }

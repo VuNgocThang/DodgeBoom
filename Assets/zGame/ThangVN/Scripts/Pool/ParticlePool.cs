@@ -6,10 +6,9 @@ public class ParticlePool : MonoBehaviour
 {
     public enum TypeParticle
     {
-        Click,
-        Eat,
-        Move,
-        Unlock
+        SingleBoom,
+        BigBoom,
+        FireBoom,
     }
 
     public TypeParticle typeParticle;
@@ -19,21 +18,17 @@ public class ParticlePool : MonoBehaviour
 
     public void OnParticleSystemStopped()
     {
-        if (typeParticle == TypeParticle.Click)
+        if (typeParticle == TypeParticle.SingleBoom)
         {
-            //LogicGame.Instance.clickParticlePool.Release(particle);
+            LogicGame.Instance.singleBoomPool.Release(particle);
         }
-        else if (typeParticle == TypeParticle.Eat)
+        else if (typeParticle == TypeParticle.BigBoom)
         {
-            //LogicGame.Instance.eatParticlePool.Release(particle);
+            LogicGame.Instance.bigBoomPool.Release(particle);
         }
-        else if (typeParticle == TypeParticle.Move)
+        else if (typeParticle == TypeParticle.FireBoom)
         {
-            //GameManager.Instance.comboParticlePool.Release(particle);
-        }
-        else if (typeParticle == TypeParticle.Unlock)
-        {
-            //GameManager.Instance.comboParticlePool.Release(particle);
+            LogicGame.Instance.fireBoomPool.Release(particle);
         }
     }
     void Start()

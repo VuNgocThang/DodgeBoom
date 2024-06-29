@@ -16,7 +16,7 @@ public class LogicPlayer : MonoBehaviour
             if (transform.position.x < 10f)
             {
                 transform.DOMoveX(transform.position.x + 0.2f * offSetSpeed, 0.1f * offSetSpeed);
-                matBG.mainTextureOffset -= new Vector2(0.01f, 0f);
+                //matBG.mainTextureOffset -= new Vector2(0.005f, 0f);
             }
         }
 
@@ -25,7 +25,7 @@ public class LogicPlayer : MonoBehaviour
             if (transform.position.x > -10f)
             {
                 transform.DOMoveX(transform.position.x - 0.2f * offSetSpeed, 0.1f * offSetSpeed);
-                matBG.mainTextureOffset += new Vector2(0.01f, 0f);
+                //matBG.mainTextureOffset += new Vector2(0.005f, 0f);
             }
         }
 
