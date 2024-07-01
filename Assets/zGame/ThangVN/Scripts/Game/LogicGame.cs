@@ -43,6 +43,7 @@ public class LogicGame : MonoBehaviour
     [SerializeField] private ParticleSystem bigBoomPrefab;
     [SerializeField] private ParticleSystem fireBoomPrefab;
     [SerializeField] LogicDataSpawn logicData;
+    public bool isUseEnergy;
 
     private void Awake()
     {
@@ -80,7 +81,6 @@ public class LogicGame : MonoBehaviour
 
         timerCount += Time.deltaTime;
         timeCanReset += Time.deltaTime;
-        Debug.Log(timerCount);
 
         if (timeIsSpawning > 0f)
         {
@@ -194,5 +194,10 @@ public class LogicGame : MonoBehaviour
             }
             yield return new WaitForSeconds(duration / numberOfCouple);
         }
+    }
+
+    public bool IsInLayerMask(GameObject obj, LayerMask layerMask)
+    {
+        return ((layerMask.value & (1 << obj.layer)) > 0);
     }
 }

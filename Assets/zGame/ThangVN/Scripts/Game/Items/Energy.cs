@@ -6,11 +6,11 @@ public class Energy : MonoBehaviour
 {
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.CompareTag("Player"))
+        if (!LogicGame.Instance.isUseEnergy)
         {
-            Debug.Log("Add Energy += 10");
             SaveGame.Energy += 50;
-            transform.gameObject.SetActive(false);
         }
+
+        transform.gameObject.SetActive(false);
     }
 }

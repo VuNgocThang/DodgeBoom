@@ -8,6 +8,14 @@ public class BigBoom : IBoom
     {
         base.Init(spawnPos);
     }
+
+    public override void SpawnParticle(Vector3 posParticle, Vector3 posItem)
+    {
+        base.SpawnParticle(posParticle, posItem);
+        LogicGame.Instance.bigBoomPool.Spawn(posParticle, true);
+        CameraShake.Instance.OnShake(0.2f, 1);
+    }
+
     public override void Update()
     {
         base.Update();

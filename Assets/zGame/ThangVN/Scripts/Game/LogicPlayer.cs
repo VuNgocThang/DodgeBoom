@@ -14,6 +14,8 @@ public class LogicPlayer : MonoBehaviour
     public GameObject vfx;
     [SerializeField] bool isMoving;
     [SerializeField] Animator anim;
+    [SerializeField] LayerMask layerBoom;
+    [SerializeField] bool isDie;
     private void Awake()
     {
         ManagerEvent.RegEvent(EventCMD.EVENT_USE_EFFECT, UseEffect);
@@ -21,6 +23,14 @@ public class LogicPlayer : MonoBehaviour
 
     private void FixedUpdate()
     {
+        if (isDie)
+        {
+            isMoving = false;
+            vfx.gameObject.SetActive(false);
+            anim.Play("die");
+            return;
+        }
+
         isMoving = false;
 
         if (Input.GetKey(KeyCode.D))
@@ -33,7 +43,6 @@ public class LogicPlayer : MonoBehaviour
             if (transform.position.x < 10f)
             {
                 transform.position = Vector3.Lerp(transform.position, new Vector3(transform.position.x + 0.2f * offSetSpeed, transform.position.y, 0), 0.1f * offSetSpeed);
-                //transform.DOMoveX(transform.position.x + 0.2f * offSetSpeed, 0.1f * offSetSpeed);
                 //matBG.mainTextureOffset -= new Vector2(0.005f, 0f);
             }
         }
@@ -48,7 +57,6 @@ public class LogicPlayer : MonoBehaviour
             if (transform.position.x > -10f)
             {
                 transform.position = Vector3.Lerp(transform.position, new Vector3(transform.position.x - 0.2f * offSetSpeed, transform.position.y, 0), 0.1f * offSetSpeed);
-                //transform.DOMoveX(transform.position.x - 0.2f * offSetSpeed, 0.1f * offSetSpeed);
                 //matBG.mainTextureOffset += new Vector2(0.005f, 0f);
             }
         }
@@ -64,52 +72,15 @@ public class LogicPlayer : MonoBehaviour
             offSetSpeed += 0.2f;
         }
     }
-
-    //private void FixedUpdate()
-    //{
-    //    if (Input.GetKey(KeyCode.D))
-    //    {
-    //        spine.localScale = new Vector3(0.4f, 0.4f, 0.4f);
-
-    //        isMoving = true;
-    //        vfx.gameObject.SetActive(true);
-    //        anim.Play("run_slow");
-    //        if (transform.position.x < 10f)
-    //        {
-    //            transform.position = Vector3.Lerp(transform.position, new Vector3(transform.position.x + 0.2f * offSetSpeed, transform.position.y, 0), 0.1f * offSetSpeed);
-    //            //transform.DOMoveX(transform.position.x + 0.2f * offSetSpeed, 0.1f * offSetSpeed);
-    //            //matBG.mainTextureOffset -= new Vector2(0.005f, 0f);
-    //        }
-    //    }
-
-    //    if (Input.GetKey(KeyCode.A))
-    //    {
-    //        spine.localScale = new Vector3(-0.4f, 0.4f, 0.4f);
-
-    //        isMoving = true;
-    //        vfx.gameObject.SetActive(true);
-    //        anim.Play("run_slow");
-    //        if (transform.position.x > -10f)
-    //        {
-    //            transform.position = Vector3.Lerp(transform.position, new Vector3(transform.position.x - 0.2f * offSetSpeed, transform.position.y, 0), 0.1f * offSetSpeed);
-    //            //transform.DOMoveX(transform.position.x - 0.2f * offSetSpeed, 0.1f * offSetSpeed);
-    //            //matBG.mainTextureOffset += new Vector2(0.005f, 0f);
-    //        }
-    //    }
-    //}
-
-    private void OnCollisionEnter(Collision collision)
-    {
-        if (collision.gameObject.CompareTag("Boom"))
-        {
-            collision.gameObject.SetActive(false);
-            //Debug.Log(" - heart" + collision.gameObject.name);
-        }
-    }
-
     private void OnTriggerEnter(Collider other)
     {
-        
+        if (LogicGame.Instance.IsInLayerMask(other.transform.parent.gameObject, layerBoom))
+        {
+            Debug.Log("Play Anim Die");
+            Vector3 posParticle = new Vector3(other.transform.parent.transform.position.x, transform.position.y, 0);
+            LogicGame.Instance.singleBoomPool.Spawn(posParticle, true);
+            isDie = true;
+        }
     }
 
     void UseEffect(object e)
@@ -121,7 +92,7 @@ public class LogicPlayer : MonoBehaviour
 
     IEnumerator StopUseEffect()
     {
-        yield return new WaitForSeconds(3f);
+        yield return new WaitForSeconds(10f);
         cover.gameObject.SetActive(false);
     }
 }

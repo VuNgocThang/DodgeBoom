@@ -37,6 +37,26 @@ public class SingleBoom : IBoom
         }
     }
 
+    public override void SpawnParticle(Vector3 posParticle, Vector3 posItem)
+    {
+        base.SpawnParticle(posParticle, posItem);
+        LogicGame.Instance.singleBoomPool.Spawn(posParticle, true);
+
+        if (energy.gameObject.activeSelf)
+        {
+            Debug.Log("Spawn energy");
+            Energy spawnedEnergy = CustomPoolController.Instance.GetEnergy();
+            spawnedEnergy.transform.position = posItem;
+        }
+
+        if (coin.gameObject.activeSelf)
+        {
+            Debug.Log("Spawn coin");
+            Coin spawnedCoin = CustomPoolController.Instance.GetCoin();
+            spawnedCoin.transform.position = posItem;
+        }
+    }
+
     public override void Update()
     {
         base.Update();

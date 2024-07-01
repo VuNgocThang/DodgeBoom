@@ -14,7 +14,7 @@ public class CustomPoolController : MonoBehaviour
     public Energy energyPrefab;
 
     private ObjectPool<SingleBoom> singleBoomPool;
-    private ObjectPool<DoubleBoom> doubleBoomPool;
+    //private ObjectPool<DoubleBoom> doubleBoomPool;
     private ObjectPool<BigBoom> bigBoomPool;
     private ObjectPool<Coin> coinPool;
     private ObjectPool<Energy> energyPool;
@@ -27,7 +27,7 @@ public class CustomPoolController : MonoBehaviour
     void Start()
     {
         singleBoomPool = new ObjectPool<SingleBoom>(singleBoomPrefab, 10, parent);
-        doubleBoomPool = new ObjectPool<DoubleBoom>(doubleBoomPrefab, 10, parent);
+        //doubleBoomPool = new ObjectPool<DoubleBoom>(doubleBoomPrefab, 10, parent);
         bigBoomPool = new ObjectPool<BigBoom>(bigBoomPrefab, 10, parent);
         coinPool = new ObjectPool<Coin>(coinPrefab, 10, parent);
         energyPool = new ObjectPool<Energy>(energyPrefab, 10, parent);
@@ -38,10 +38,10 @@ public class CustomPoolController : MonoBehaviour
         return singleBoomPool.GetObject();
     }
 
-    public DoubleBoom GetDoubleBoom()
-    {
-        return doubleBoomPool.GetObject();
-    }
+    //public DoubleBoom GetDoubleBoom()
+    //{
+    //    return doubleBoomPool.GetObject();
+    //}
 
     public BigBoom GetBigBoom()
     {
@@ -65,7 +65,7 @@ public class CustomPoolController : MonoBehaviour
 
     public void ReturnDoubleBoom(DoubleBoom doubleBoom)
     {
-        doubleBoomPool.ReturnObject(doubleBoom);
+        //doubleBoomPool.ReturnObject(doubleBoom);
     }
 
     public void ReturnBigBoom(BigBoom bigBoom)

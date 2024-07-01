@@ -16,7 +16,7 @@ public abstract class IBoom : MonoBehaviour
         transform.position = spawnPos;
         offSetSpeed = 5f + (LogicGame.Instance.timerCount / 30f);
     }
-    public virtual void Execute()
+    public virtual void SpawnParticle(Vector3 posParticle, Vector3 posItem)
     {
 
     }
