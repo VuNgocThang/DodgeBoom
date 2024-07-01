@@ -13,19 +13,15 @@ MonoBehaviour:
   m_Name: LogicDataSpawn
   m_EditorClassIdentifier: 
   listTimeData:
-  - time: 30
+  - time: 0
     listTypeBooms: 00000000
-    timeSpawnInList: 0.3
-    timeSpawnEachList: 1.5
-  - time: 60
+    range: 3
+    duration: 5
+  - time: 7
+    listTypeBooms: 00000000
+    range: 3
+    duration: 5
+  - time: 12
     listTypeBooms: 01000000
-    timeSpawnInList: 0.5
-    timeSpawnEachList: 1.5
-  - time: 90
-    listTypeBooms: 02000000
-    timeSpawnInList: 0.8
-    timeSpawnEachList: 1.3
-  - time: 120
-    listTypeBooms: 0000000001000000
-    timeSpawnInList: 0.4
-    timeSpawnEachList: 1.3
+    range: 3
+    duration: 5

@@ -8,4 +8,9 @@ public class BigBoom : IBoom
     {
         base.Init(spawnPos);
     }
+    public override void Update()
+    {
+        base.Update();
+    }
+
 }

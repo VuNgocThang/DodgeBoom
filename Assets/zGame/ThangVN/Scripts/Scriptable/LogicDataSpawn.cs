@@ -8,8 +8,8 @@ public class TimeData
 {
     public float time;
     public List<int> listTypeBooms;
-    public float timeSpawnInList;
-    public float timeSpawnEachList;
+    public float range;
+    public float duration;
 }
 
 

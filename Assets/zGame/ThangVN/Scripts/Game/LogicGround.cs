@@ -11,7 +11,7 @@ public class LogicGround : MonoBehaviour
         if (other.transform.parent.gameObject.CompareTag("Boom"))
         {
             Debug.Log(other.transform.parent.gameObject.name);
-            Vector3 newPos = other.transform.parent.transform.position;
+            Vector3 newPos = new Vector3(other.transform.parent.transform.position.x, transform.position.y, 0);
             LogicGame.Instance.bigBoomPool.Spawn(newPos, true);
             SingleBoom boom = other.transform.parent.gameObject.GetComponent<SingleBoom>();
             if (boom != null)
@@ -30,13 +30,7 @@ public class LogicGround : MonoBehaviour
                     coin.transform.position = newPos;
                 }
             }
-            StartCoroutine(PlayAnimBoom(other.transform.parent.gameObject));
+            other.transform.parent.gameObject.SetActive(false);
         }
-    }
-
-    IEnumerator PlayAnimBoom(GameObject obj)
-    {
-        yield return new WaitForSeconds(0.15f);
-        obj.SetActive(false);
     }
 }
