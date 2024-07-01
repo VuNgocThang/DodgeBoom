@@ -9,7 +9,7 @@ public class Energy : MonoBehaviour
         if (other.gameObject.CompareTag("Player"))
         {
             Debug.Log("Add Energy += 10");
-            SaveGame.Energy += 10;
+            SaveGame.Energy += 50;
             transform.gameObject.SetActive(false);
         }
     }

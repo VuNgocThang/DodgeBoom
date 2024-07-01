@@ -9,8 +9,8 @@ public class LogicUITest : MonoBehaviour
 
     private void Update()
     {
-        int m = Mathf.RoundToInt(LogicGame.timerCount / 60);
-        int s = Mathf.RoundToInt(LogicGame.timerCount % 60);
-        txtTime.text = $"{m} : {s}";
+        //int m = Mathf.RoundToInt(LogicGame.timerCount / 60);
+        //int s = Mathf.RoundToInt(LogicGame.timerCount % 60);
+        //txtTime.text = $"{m} : {s}";
     }
 }

@@ -56,7 +56,7 @@ namespace ntDev
             if (act != null) act();
             else if (actO != null) actO(o);
             if (animEasyButton != null) animEasyButton.Play("Clicked");
-            if (ManagerAudio.Data.soundClick != null && ManagerAudio.Data != null) ManagerAudio.PlaySound(ManagerAudio.Data.soundEasyButton);
+            //if (ManagerAudio.Data.soundClick != null && ManagerAudio.Data != null) ManagerAudio.PlaySound(ManagerAudio.Data.soundEasyButton);
         }
 
         float scaleBase = 1f;

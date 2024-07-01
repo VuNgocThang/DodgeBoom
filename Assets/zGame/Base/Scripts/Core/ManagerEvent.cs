@@ -68,7 +68,9 @@ namespace ntDev
         EVENT_POINT,
         EVENT_WIN,
         EVENT_LOSE,
-        EVENT_SWITCH
+        EVENT_SWITCH,
+
+        EVENT_USE_EFFECT,
     }
 
     public static class ManagerEvent

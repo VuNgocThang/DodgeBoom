@@ -4,6 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.Collections.LowLevel.Unsafe;
 using UnityEngine;
+using UnityEngine.SocialPlatforms;
 
 
 [Serializable]
@@ -29,10 +30,10 @@ public class LogicGame : MonoBehaviour
     [SerializeField] List<ListSpawnPos> listContaineListSpawn;
     [SerializeField] LogicPlayer player;
     [SerializeField] CustomPoolController poolManager;
-    public List<IBoom> listBoom;
+    [SerializeField] public float timerCount;
 
+    public List<GameObject> listBoom;
     //[SerializeField] float timeSpawnBoomSpecial = -1f;
-    [SerializeField] public static float timerCount;
 
     public CustomPool<ParticleSystem> singleBoomPool;
     public CustomPool<ParticleSystem> bigBoomPool;
@@ -54,12 +55,11 @@ public class LogicGame : MonoBehaviour
         singleBoomPool = new CustomPool<ParticleSystem>(singleBoomPrefab, 5, transform, false);
         bigBoomPool = new CustomPool<ParticleSystem>(bigBoomPrefab, 5, transform, false);
         fireBoomPool = new CustomPool<ParticleSystem>(fireBoomPrefab, 5, transform, false);
+        SaveGame.Energy = 0;
     }
 
     private void Update()
     {
-        timerCount += Ez.TimeMod;
-
         //if (timeSpawnBoomSpecial > 0f)
         //{
         //    timeSpawnBoomSpecial -= Ez.TimeMod;
@@ -78,8 +78,9 @@ public class LogicGame : MonoBehaviour
 
         //}
 
-        timerCount += Ez.TimeMod;
-        Debug.Log("timeCount: " + timerCount);
+        timerCount += Time.deltaTime;
+        timeCanReset += Time.deltaTime;
+        Debug.Log(timerCount);
 
         if (timeIsSpawning > 0f)
         {
@@ -87,102 +88,111 @@ public class LogicGame : MonoBehaviour
         }
         else
         {
-            for (int i = 0; i < logicData.listTimeData.Count; i++)
+            if (timeCanReset > 52f) timeCanReset = 0f;
+
+            for (int i = logicData.listTimeData.Count - 1; i >= 0; i--)
             {
-                if (timerCount < logicData.listTimeData[i].time)
+                if (timeCanReset >= logicData.listTimeData[i].time)
                 {
                     timeIsSpawning = logicData.listTimeData[i].duration;
-                    StartCoroutine(SpawnBoom(logicData.listTimeData[i].listTypeBooms[0], logicData.listTimeData[i].range, logicData.listTimeData[i].duration));
+                    int type = logicData.listTimeData[i].listTypeBooms[0];
+                    float range = logicData.listTimeData[i].range;
+                    int countBoom = logicData.listTimeData[i].countBoom;
+                    float duration = logicData.listTimeData[i].duration;
+
+                    SpawnBoom(type, range, countBoom, duration);
                     break;
                 }
             }
         }
     }
 
+    float timeCanReset = 0f;
 
-    float timeIsSpawning = 0f;
-    int countDiff = 0;
 
-    private IEnumerator SpawnBoom(int type, float range, float duration)
+    public float timeIsSpawning = 0f;
+    public int countDiff = 0;
+
+    private void SpawnBoom(int type, float range, int countBoom, float duration)
     {
         int index = countDiff % 3;
         countDiff++;
         if (countDiff > 3) countDiff = 0;
 
-        for (int i = 0; i < 10; i++)
-        {
-            Debug.Log("typeBoom:" + type);
-            SelectBoomSpawn(type, index, range, i);
-            yield return new WaitForSeconds(duration / 10);
-        }
+        SelectBoomSpawn(type, index, range, countBoom, duration);
     }
 
-    void SelectBoomSpawn(int type, int index, float range, int i)
+    void SelectBoomSpawn(int type, int index, float range, int countBoom, float duration)
     {
         switch (type)
         {
             case 0:
-                SingleBoom singleBoom = poolManager.GetSingleBoom();
-                Vector3 spawnPosSingleBoom = new Vector3(listContaineListSpawn[index].startPos.position.x + range * i, listContaineListSpawn[index].startPos.position.y, 0);
-                singleBoom.Init(spawnPosSingleBoom);
+                StartCoroutine(SpawnSingleBoom(index, range, countBoom, duration));
                 break;
             case 1:
-                BigBoom bigBoom = poolManager.GetBigBoom();
-                Vector3 spawnPosBigBoom = new Vector3(listContaineListSpawn[index].startPos.position.x + range * i, listContaineListSpawn[index].startPos.position.y, 0);
-                bigBoom.Init(spawnPosBigBoom);
+                StartCoroutine(SpawnCoupleBoom(index, range, countBoom, duration, 2));
+                break;
+            case 2:
+                StartCoroutine(SpawnBigBoom(index, range, countBoom, duration));
+                break;
+            case 3:
+                StartCoroutine(SpawnCoupleBoom(index, range, countBoom, duration, 3));
+                break;
+            case 4:
+                StartCoroutine(SpawnCoupleBoom(index, range, countBoom, duration, 4));
                 break;
             default:
                 break;
         }
     }
 
-    //private IEnumerator SpawnDoubleBoom()
-    //{
-    //    isSpawning = true;
-    //    int index = countDiff % 3;
-    //    countDiff++;
-    //    if (countDiff > 3) countDiff = 0;
-    //    //List<Transform> spawnPositions = listContaineListSpawn[index].listPos;
-    //    //int numberOfPairs = spawnPositions.Count / 2;
+    IEnumerator SpawnBigBoom(int index, float range, int countBoom, float duration)
+    {
+        for (int i = 0; i < countBoom; i++)
+        {
+            BigBoom bigBoom = poolManager.GetBigBoom();
+            Vector3 spawnPosBigBoom = new Vector3(listContaineListSpawn[index].startPos.position.x + range * i, listContaineListSpawn[index].startPos.position.y, 0);
+            bigBoom.Init(spawnPosBigBoom);
+            listBoom.Add(bigBoom.gameObject);
 
-    //    int countAll = 20;
-    //    int numberOfPairs = 20 / 2;
+            yield return new WaitForSeconds(duration / countBoom);
+        }
 
-    //    //int count = listContaineListSpawn[index].listPos.Count;
+    }
 
-    //    for (int i = 0; i < numberOfPairs; i++)
-    //    {
-    //        for (int j = 0; j < 2; j++)
-    //        {
-    //            int posIndex = i * 2 + j;
-    //            //if (posIndex < spawnPositions.Count)
-    //            if (posIndex < countAll)
-    //            {
-    //                SingleBoom singleBoom = poolManager.GetSingleBoom();
-    //                float xPos = listContaineListSpawn[index].startPos.position.x + i * offsetBetweenPairs + j * offsetInPair;
-    //                Vector3 spawnPos = new Vector3(xPos, listContaineListSpawn[index].startPos.position.y, 0);
-    //                singleBoom.Init(spawnPos);
-    //            }
+    IEnumerator SpawnSingleBoom(int index, float range, int countBoom, float duration)
+    {
+        for (int i = 0; i < countBoom; i++)
+        {
+            SingleBoom singleBoom = poolManager.GetSingleBoom();
+            Vector3 spawnPosSingleBoom = new Vector3(listContaineListSpawn[index].startPos.position.x + range * i, listContaineListSpawn[index].startPos.position.y, 0);
+            singleBoom.Init(spawnPosSingleBoom);
+            listBoom.Add(singleBoom.gameObject);
+            yield return new WaitForSeconds(duration / countBoom);
+        }
+    }
 
-    //            //yield return new WaitForSeconds(0.1f);
-    //        }
-    //        yield return new WaitForSeconds(totalTimeInWave / numberOfPairs);
-    //    }
+    private IEnumerator SpawnCoupleBoom(int index, float range, int countBoom, float duration, int couple)
+    {
+        int numberOfCouple = countBoom / couple;
+        for (int x = 0; x < numberOfCouple; x++)
+        {
+            for (int j = 0; j < couple; j++)
+            {
+                int posIndex = x * couple + j;
+                if (posIndex < countBoom)
+                {
+                    SingleBoom singleBoom = poolManager.GetSingleBoom();
+                    float xPos = listContaineListSpawn[index].startPos.position.x + x * range + j * 1f;
+                    Vector3 spawnPos = new Vector3(xPos, listContaineListSpawn[index].startPos.position.y, 0);
+                    listBoom.Add(singleBoom.gameObject);
 
-    //    //if (spawnPositions.Count % 2 != 0)
-    //    if (countAll % 2 != 0)
-    //    {
-    //        //int lastIndex = spawnPositions.Count - 1;
-    //        int lastIndex = countAll - 1;
-    //        SingleBoom singleBoom = poolManager.GetSingleBoom();
-    //        Vector3 spawnPos = new Vector3(
-    //            listContaineListSpawn[index].startPos.position.x + lastIndex * offSet,
-    //            listContaineListSpawn[index].startPos.position.y,
-    //            0
-    //        );
-    //        singleBoom.Init(spawnPos);
-    //    }
+                    singleBoom.Init(spawnPos);
+                }
 
-    //    isSpawning = false;
-    //}
+                //yield return new WaitForSeconds(0.1f);
+            }
+            yield return new WaitForSeconds(duration / numberOfCouple);
+        }
+    }
 }

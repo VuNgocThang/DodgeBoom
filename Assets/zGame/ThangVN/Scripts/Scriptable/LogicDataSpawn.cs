@@ -10,6 +10,7 @@ public class TimeData
     public List<int> listTypeBooms;
     public float range;
     public float duration;
+    public int countBoom;
 }
 
 
