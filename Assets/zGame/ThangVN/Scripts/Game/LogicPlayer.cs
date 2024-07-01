@@ -107,6 +107,11 @@ public class LogicPlayer : MonoBehaviour
         }
     }
 
+    private void OnTriggerEnter(Collider other)
+    {
+        
+    }
+
     void UseEffect(object e)
     {
         cover.gameObject.SetActive(true);
