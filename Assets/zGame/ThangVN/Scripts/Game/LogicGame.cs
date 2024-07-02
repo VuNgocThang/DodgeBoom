@@ -25,14 +25,17 @@ public enum TypeBoom
 public class LogicGame : MonoBehaviour
 {
     public static LogicGame Instance;
-    public TypeBoom typeBoom;
+    public LogicPlayer player;
     [SerializeField] float timeSpawn = -1f;
     [SerializeField] List<ListSpawnPos> listContaineListSpawn;
-    [SerializeField] LogicPlayer player;
     [SerializeField] CustomPoolController poolManager;
     [SerializeField] public float timerCount;
+    [SerializeField] Transform holderParticles;
 
     public List<GameObject> listBoom;
+    public List<LogicShadow> listShadow;
+    public List<Energy> listEnergy;
+    public List<Coin> listCoin;
     //[SerializeField] float timeSpawnBoomSpecial = -1f;
 
     public CustomPool<ParticleSystem> singleBoomPool;
@@ -44,6 +47,7 @@ public class LogicGame : MonoBehaviour
     [SerializeField] private ParticleSystem fireBoomPrefab;
     [SerializeField] LogicDataSpawn logicData;
     public bool isUseEnergy;
+    public bool isUseMagnet;
 
     private void Awake()
     {
@@ -53,9 +57,9 @@ public class LogicGame : MonoBehaviour
     private void Start()
     {
         timerCount = 0f;
-        singleBoomPool = new CustomPool<ParticleSystem>(singleBoomPrefab, 5, transform, false);
-        bigBoomPool = new CustomPool<ParticleSystem>(bigBoomPrefab, 5, transform, false);
-        fireBoomPool = new CustomPool<ParticleSystem>(fireBoomPrefab, 5, transform, false);
+        singleBoomPool = new CustomPool<ParticleSystem>(singleBoomPrefab, 5, holderParticles, false);
+        bigBoomPool = new CustomPool<ParticleSystem>(bigBoomPrefab, 5, holderParticles, false);
+        fireBoomPool = new CustomPool<ParticleSystem>(fireBoomPrefab, 5, holderParticles, false);
         SaveGame.Energy = 0;
     }
 
@@ -76,7 +80,6 @@ public class LogicGame : MonoBehaviour
         //        doubleBoom.Init(spawnPos);
         //        listBoom.Add(doubleBoom);
         //    }
-
         //}
 
         timerCount += Time.deltaTime;
@@ -104,6 +107,16 @@ public class LogicGame : MonoBehaviour
                     break;
                 }
             }
+        }
+
+        if (Input.GetKeyDown(KeyCode.U))
+        {
+            isUseMagnet = true;
+        }
+
+        if (Input.GetKeyDown(KeyCode.I))
+        {
+            isUseMagnet = false;
         }
     }
 
@@ -151,9 +164,14 @@ public class LogicGame : MonoBehaviour
         for (int i = 0; i < countBoom; i++)
         {
             BigBoom bigBoom = poolManager.GetBigBoom();
-            Vector3 spawnPosBigBoom = new Vector3(listContaineListSpawn[index].startPos.position.x + range * i, listContaineListSpawn[index].startPos.position.y, 0);
-            bigBoom.Init(spawnPosBigBoom);
+            Vector3 spawnPos = new Vector3(listContaineListSpawn[index].startPos.position.x + range * i, listContaineListSpawn[index].startPos.position.y, 0);
+            bigBoom.Init(spawnPos);
             listBoom.Add(bigBoom.gameObject);
+
+            LogicShadow shadow = poolManager.GetShadow();
+            Vector3 posShadow = new Vector3(spawnPos.x, -7f, 0);
+            shadow.transform.position = posShadow;
+            listShadow.Add(shadow);
 
             yield return new WaitForSeconds(duration / countBoom);
         }
@@ -165,9 +183,15 @@ public class LogicGame : MonoBehaviour
         for (int i = 0; i < countBoom; i++)
         {
             SingleBoom singleBoom = poolManager.GetSingleBoom();
-            Vector3 spawnPosSingleBoom = new Vector3(listContaineListSpawn[index].startPos.position.x + range * i, listContaineListSpawn[index].startPos.position.y, 0);
-            singleBoom.Init(spawnPosSingleBoom);
+            Vector3 spawnPos = new Vector3(listContaineListSpawn[index].startPos.position.x + range * i, listContaineListSpawn[index].startPos.position.y, 0);
+            singleBoom.Init(spawnPos);
             listBoom.Add(singleBoom.gameObject);
+
+            LogicShadow shadow = poolManager.GetShadow();
+            Vector3 posShadow = new Vector3(spawnPos.x, -7f, 0);
+            shadow.transform.position = posShadow;
+            listShadow.Add(shadow);
+
             yield return new WaitForSeconds(duration / countBoom);
         }
     }
@@ -185,9 +209,14 @@ public class LogicGame : MonoBehaviour
                     SingleBoom singleBoom = poolManager.GetSingleBoom();
                     float xPos = listContaineListSpawn[index].startPos.position.x + x * range + j * 1f;
                     Vector3 spawnPos = new Vector3(xPos, listContaineListSpawn[index].startPos.position.y, 0);
+                    singleBoom.Init(spawnPos);
                     listBoom.Add(singleBoom.gameObject);
 
-                    singleBoom.Init(spawnPos);
+
+                    LogicShadow shadow = poolManager.GetShadow();
+                    Vector3 posShadow = new Vector3(spawnPos.x, -7f, 0);
+                    shadow.transform.position = posShadow;
+                    listShadow.Add(shadow);
                 }
 
                 //yield return new WaitForSeconds(0.1f);

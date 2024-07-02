@@ -20,6 +20,16 @@ public class LogicGround : MonoBehaviour
             }
 
             LogicGame.Instance.listBoom.Remove(other.transform.parent.gameObject);
+            foreach (LogicShadow s in LogicGame.Instance.listShadow)
+            {
+                float distanceThreshold = 0.1f;
+
+                if (Vector3.Distance(s.transform.position, new Vector3(other.transform.parent.transform.position.x, -7, 0)) < distanceThreshold)
+                {
+                    s.gameObject.SetActive(false);
+                    break;
+                }
+            }
             other.transform.parent.gameObject.SetActive(false);
         }
     }
