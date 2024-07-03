@@ -8,29 +8,29 @@ public class LogicGround : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (LogicGame.Instance.IsInLayerMask(other.transform.parent.gameObject, layerBoom))
+        if (LogicGame.Instance.IsInLayerMask(other.gameObject, layerBoom))
         {
-            Vector3 posParticle = new Vector3(other.transform.parent.transform.position.x, transform.position.y, 0);
-            Vector3 posItem = other.transform.parent.transform.position;
+            Vector3 posParticle = new Vector3(other.transform.position.x, transform.position.y, 0);
+            Vector3 posItem = other.transform.position;
 
-            IBoom boom = other.transform.parent.gameObject.GetComponent<IBoom>();
+            IBoom boom = other.gameObject.GetComponent<IBoom>();
             if (boom != null)
             {
                 boom.SpawnParticle(posParticle, posItem);
             }
 
-            LogicGame.Instance.listBoom.Remove(other.transform.parent.gameObject);
+            LogicGame.Instance.listBoom.Remove(other.gameObject);
             foreach (LogicShadow s in LogicGame.Instance.listShadow)
             {
                 float distanceThreshold = 0.1f;
 
-                if (Vector3.Distance(s.transform.position, new Vector3(other.transform.parent.transform.position.x, -7, 0)) < distanceThreshold)
+                if (Vector3.Distance(s.transform.position, new Vector3(other.transform.position.x, -7, 0)) < distanceThreshold)
                 {
                     s.gameObject.SetActive(false);
                     break;
                 }
             }
-            other.transform.parent.gameObject.SetActive(false);
+            other.gameObject.SetActive(false);
         }
     }
 }

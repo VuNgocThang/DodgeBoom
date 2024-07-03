@@ -4,8 +4,9 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.Collections.LowLevel.Unsafe;
 using UnityEngine;
+using UnityEngine.Pool;
 using UnityEngine.SocialPlatforms;
-
+using Utilities.Common;
 
 [Serializable]
 public class ListSpawnPos
@@ -49,6 +50,14 @@ public class LogicGame : MonoBehaviour
     public bool isUseEnergy;
     public bool isUseMagnet;
 
+    public float timeUseMagnet;
+    public float timeUseShield;
+
+
+    public bool isUseShield;
+    public bool isUseSBoom;
+    [SerializeField] float timeSpawnItem = 0f;
+
     private void Awake()
     {
         Instance = this;
@@ -57,6 +66,7 @@ public class LogicGame : MonoBehaviour
     private void Start()
     {
         timerCount = 0f;
+        timeSpawnItem = 5f;
         singleBoomPool = new CustomPool<ParticleSystem>(singleBoomPrefab, 5, holderParticles, false);
         bigBoomPool = new CustomPool<ParticleSystem>(bigBoomPrefab, 5, holderParticles, false);
         fireBoomPool = new CustomPool<ParticleSystem>(fireBoomPrefab, 5, holderParticles, false);
@@ -84,7 +94,6 @@ public class LogicGame : MonoBehaviour
 
         timerCount += Time.deltaTime;
         timeCanReset += Time.deltaTime;
-
         if (timeIsSpawning > 0f)
         {
             timeIsSpawning -= Time.deltaTime;
@@ -109,14 +118,45 @@ public class LogicGame : MonoBehaviour
             }
         }
 
-        if (Input.GetKeyDown(KeyCode.U))
+        SpawnItem();
+        CountDownUseItem();
+
+    }
+
+    private void CountDownUseItem()
+    {
+        if (timeUseShield > 0f)
         {
-            isUseMagnet = true;
+            timeUseShield -= Time.deltaTime;
+            player.shield.SetActive(true);
+        }
+        else
+        {
+            timeUseShield = 0f;
+            player.shield.SetActive(false);
         }
 
-        if (Input.GetKeyDown(KeyCode.I))
+        if (timeUseMagnet > 0f)
         {
-            isUseMagnet = false;
+            timeUseMagnet -= Time.deltaTime;
+            player.magnet.SetActive(true);
+        }
+        else
+        {
+            timeUseMagnet = 0f;
+            player.magnet.SetActive(false);
+        }
+    }
+
+    private void SpawnItem()
+    {
+        if (timeSpawnItem > 0f) timeSpawnItem -= Time.deltaTime;
+        else
+        {
+            timeSpawnItem = 5f;
+            Debug.Log("spawn item");
+            int index = UnityEngine.Random.Range(2, 3);
+            SelectItemSpawn(index);
         }
     }
 
@@ -225,8 +265,41 @@ public class LogicGame : MonoBehaviour
         }
     }
 
+    void SelectItemSpawn(int type)
+    {
+        Vector3 posSpawn = new Vector3(UnityEngine.Random.Range(-7f, 7f), 10f, 0);
+        switch (type)
+        {
+            case 0:
+                Magnet magnet = poolManager.GetMagnet();
+                magnet.Init(posSpawn);
+                break;
+            case 1:
+                Shield shield = poolManager.GetShield();
+                shield.Init(posSpawn);
+                break;
+            case 2:
+                SBoom sBoom = poolManager.GetSBoom();
+                sBoom.Init(posSpawn);
+                break;
+            default:
+                break;
+        }
+    }
+
     public bool IsInLayerMask(GameObject obj, LayerMask layerMask)
     {
         return ((layerMask.value & (1 << obj.layer)) > 0);
     }
+
+    IEnumerator UseMagnet()
+    {
+        isUseMagnet = true;
+        yield return new WaitForSeconds(7f);
+        isUseMagnet = false;
+    }
+
+
+
+
 }

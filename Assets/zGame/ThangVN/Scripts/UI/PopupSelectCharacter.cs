@@ -1,0 +1,42 @@
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using ntDev;
+using UnityEngine.SceneManagement;
+
+public class PopupSelectCharacter : PopupCharacterBase
+{
+    public EasyButton btnNext, btnPrevious, btnPlay;
+    public static async void Show()
+    {
+        PopupSelectCharacter pop = await ManagerPopup.ShowPopup<PopupSelectCharacter>();
+        pop.Init();
+    }
+
+    protected override void Awake()
+    {
+        base.Awake();
+
+        btnNext.OnClick(ShowNextChar);
+        btnPrevious.OnClick(ShowPreChar);
+        btnPlay.OnClick(PlayGame);
+    }
+    public override void Hide()
+    {
+        base.Hide();
+        PopupHomeUI.Ins.Show();
+    }
+
+    void PlayGame()
+    {
+        base.Hide();
+        StartCoroutine(ShowUIGame());
+    }
+
+    IEnumerator ShowUIGame()
+    {
+        yield return new WaitForSeconds(GameConfig.TIMEHIDE);
+        SceneManager.LoadScene("SceneGame");
+        // Logic UI Game Show here;
+    }
+}

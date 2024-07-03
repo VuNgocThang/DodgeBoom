@@ -17,33 +17,23 @@ MonoBehaviour:
     m_SerializedData: []
   m_GUID: b14e637ac9301f44397afc333d730a30
   m_SerializeEntries:
-  - m_GUID: 03610f6fcac981c4f9b49d02e5eb0567
-    m_Address: PopupHome
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 0f07adcda8da8a442806e6af828d1599
     m_Address: PopupSetting
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 88477740c1ac92d4f8e319731b8f926e
-    m_Address: PopupWin
+  - m_GUID: c00adb11c8ef7eb49af4a811045630f4
+    m_Address: PopupShop
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: d0495384116323c45bd98ed70753e595
-    m_Address: PopupLose
+  - m_GUID: 00a93d36ec4de954c9128558e7ce8d1e
+    m_Address: PopupShopCharacter
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: af292e1bdd7b2f24099d990e8b2a754e
-    m_Address: PopupSettingHome
-    m_ReadOnly: 0
-    m_SerializedLabels: []
-    FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: 3011edc843ec15e49874b8707a1709ff
-    m_Address: nHomeUi
+  - m_GUID: b7e8152e3363a9d4794dc8c93d388899
+    m_Address: PopupSelectCharacter
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0

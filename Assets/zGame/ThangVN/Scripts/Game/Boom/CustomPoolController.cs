@@ -12,12 +12,18 @@ public class CustomPoolController : MonoBehaviour
     public Coin coinPrefab;
     public Energy energyPrefab;
     public LogicShadow shadownPrefab;
+    public Magnet magnet;
+    public Shield shield;
+    public SBoom sBoom;
 
     private ObjectPool<SingleBoom> singleBoomPool;
     private ObjectPool<BigBoom> bigBoomPool;
     private ObjectPool<Coin> coinPool;
     private ObjectPool<Energy> energyPool;
     private ObjectPool<LogicShadow> shadowPool;
+    private ObjectPool<Magnet> magnetPool;
+    private ObjectPool<Shield> shieldPool;
+    private ObjectPool<SBoom> sBoomPool;
 
     private void Awake()
     {
@@ -31,6 +37,9 @@ public class CustomPoolController : MonoBehaviour
         coinPool = new ObjectPool<Coin>(coinPrefab, 10, parent);
         energyPool = new ObjectPool<Energy>(energyPrefab, 10, parent);
         shadowPool = new ObjectPool<LogicShadow>(shadownPrefab, 10, parent);
+        magnetPool = new ObjectPool<Magnet>(magnet, 2, parent);
+        shieldPool = new ObjectPool<Shield>(shield, 2, parent);
+        sBoomPool = new ObjectPool<SBoom>(sBoom, 2, parent);
     }
 
     public SingleBoom GetSingleBoom()
@@ -55,6 +64,19 @@ public class CustomPoolController : MonoBehaviour
     public LogicShadow GetShadow()
     {
         return shadowPool.GetObject();
+    }
+    public Magnet GetMagnet()
+    {
+        return magnetPool.GetObject();
+    }
+    public Shield GetShield()
+    {
+        return shieldPool.GetObject();
+    }
+
+    public SBoom GetSBoom()
+    {
+        return sBoomPool.GetObject();
     }
 
     public void ReturnSingleBoom(SingleBoom singleBoom)

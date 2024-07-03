@@ -44,7 +44,6 @@ public class SingleBoom : IBoom
 
         if (energy.gameObject.activeSelf)
         {
-            Debug.Log("Spawn energy");
             Energy spawnedEnergy = CustomPoolController.Instance.GetEnergy();
             spawnedEnergy.transform.position = posItem;
             //LogicGame.Instance.listEnergy.Add(spawnedEnergy);
@@ -53,7 +52,6 @@ public class SingleBoom : IBoom
 
         if (coin.gameObject.activeSelf)
         {
-            Debug.Log("Spawn coin");
             Coin spawnedCoin = CustomPoolController.Instance.GetCoin();
             spawnedCoin.transform.position = posItem;
             //LogicGame.Instance.listCoin.Add(spawnedCoin);

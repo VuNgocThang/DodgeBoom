@@ -6,6 +6,7 @@ using UnityEditor;
 using TMPro;
 using System.Collections;
 using BaseGame;
+using Unity.VisualScripting;
 
 // by nt.Dev93
 namespace ntDev
@@ -31,7 +32,7 @@ namespace ntDev
         [SerializeField] bool Sound = true;
         [HideInInspector] public bool enableScaleFX = false;
         [HideInInspector] public bool enableSpriteFX = false;
-        [SerializeField] Animator animEasyButton;
+        [SerializeField] Animator anim;
 
         void Awake()
         {
@@ -55,7 +56,7 @@ namespace ntDev
             if (eventData.button != PointerEventData.InputButton.Left || disable) return;
             if (act != null) act();
             else if (actO != null) actO(o);
-            if (animEasyButton != null) animEasyButton.Play("Clicked");
+            //if (animEasyButton != null) animEasyButton.Play("Clicked");
             //if (ManagerAudio.Data.soundClick != null && ManagerAudio.Data != null) ManagerAudio.PlaySound(ManagerAudio.Data.soundEasyButton);
         }
 
@@ -69,7 +70,10 @@ namespace ntDev
                 img.sprite = pressedSprite;
             if (Down != null) Down.LposY(posY - DownPixel);
             scaleFlow = -1;
+
+            anim.Play("OnPointerDown");
         }
+      
 
         public virtual void OnPointerUp(PointerEventData eventData)
         {
@@ -87,6 +91,8 @@ namespace ntDev
                 img.sprite = normalSprite;
             if (Down != null) Down.LposY(posY);
             scaleFlow = 1;
+            anim.Play("OnPointerUp");
+
         }
 
         bool disable = false;

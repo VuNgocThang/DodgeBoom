@@ -17,6 +17,7 @@ public class Coin : MonoBehaviour
         //rb.AddForce(new Vector2(Random.Range(-1f, 1f), 5f), ForceMode.Impulse);
 
         transform.DOLocalJump(new Vector3(transform.localPosition.x + Random.Range(-2f, 2f), -7f, 0f), 2, 2, 0.3f);
+        //StartCoroutine(ReturnFalse());
     }
     private void OnTriggerEnter(Collider other)
     {
@@ -26,27 +27,27 @@ public class Coin : MonoBehaviour
             transform.gameObject.SetActive(false);
         }
     }
+    float speed = 4f;
 
-    private void FixedUpdate()
+    private void Update()
     {
-        //if (LogicGame.Instance.isUseMagnet)
-        //{
-        //    Vector3 posPlayer = LogicGame.Instance.player.transform.position;
-        //    float distance = Vector3.Distance(transform.position, posPlayer);
-        //    transform.position = Vector3.Lerp(transform.position, new Vector3(posPlayer.x, transform.position.y, 0), 10f);
-        //}
+        if (LogicGame.Instance.isUseMagnet)
+        {
+            Vector3 posPlayer = LogicGame.Instance.player.transform.position;
+            //float distance = Vector3.Distance(transform.position, posPlayer);
+            Vector3 direction = (posPlayer - transform.position).normalized;
+            transform.Translate(direction * speed * Time.deltaTime, Space.World);
+        }
+
+        if (!LogicGame.Instance.isUseMagnet) StartCoroutine(ReturnFalse());
+        else StopCoroutine(ReturnFalse());
     }
 
-    //private void OnCollisionEnter(Collision collision)
-    //{
-    //    if (LogicGame.Instance.IsInLayerMask(collision.gameObject, layerPlayer))
-    //    {
-    //        if (!LogicGame.Instance.isUseEnergy)
-    //        {
-    //            SaveGame.Energy += 50;
-    //        }
+    IEnumerator ReturnFalse()
+    {
+        yield return new WaitForSeconds(5f);
 
-    //        transform.gameObject.SetActive(false);
-    //    }
-    //}
+        if (!LogicGame.Instance.isUseMagnet)
+            gameObject.SetActive(false);
+    }
 }

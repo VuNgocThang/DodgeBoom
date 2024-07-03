@@ -91,4 +91,21 @@ public static class SaveGame
         }
     }
 
+    const string BESTSCORE = "BESTSCORE";
+    static float bestScore = -1f;
+
+    public static float BestScore
+    {
+        set
+        {
+            ES3.Save(BESTSCORE, value);
+            bestScore = value;
+        }
+        get
+        {
+            if (bestScore == -1) bestScore = ES3.Load(BESTSCORE, 0);
+            return bestScore;
+        }
+    }
+
 }

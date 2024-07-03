@@ -15,6 +15,7 @@ public class Energy : MonoBehaviour
     public void Init()
     {
         transform.DOLocalJump(new Vector3(transform.localPosition.x + Random.Range(-2f, 2f), -7f, 0f), 2, 2, 0.3f);
+
     }
 
     private void OnTriggerEnter(Collider other)
@@ -29,17 +30,26 @@ public class Energy : MonoBehaviour
             transform.gameObject.SetActive(false);
         }
     }
+    float speed = 3f;
 
-    //private void OnCollisionEnter(Collision collision)
-    //{
-    //    if (LogicGame.Instance.IsInLayerMask(collision.gameObject, layerPlayer))
-    //    {
-    //        if (!LogicGame.Instance.isUseEnergy)
-    //        {
-    //            SaveGame.Energy += 50;
-    //        }
+    private void Update()
+    {
+        if (LogicGame.Instance.isUseMagnet)
+        {
+            Vector3 posPlayer = LogicGame.Instance.player.transform.position;
+            //float distance = Vector3.Distance(transform.position, posPlayer);
+            Vector3 direction = (posPlayer - transform.position).normalized;
+            transform.Translate(direction * speed * Time.deltaTime, Space.World);
+        }
 
-    //        transform.gameObject.SetActive(false);
-    //    }
-    //}
+        if (!LogicGame.Instance.isUseMagnet) StartCoroutine(ReturnFalse());
+        else StopCoroutine(ReturnFalse());
+    }
+
+    IEnumerator ReturnFalse()
+    {
+        yield return new WaitForSeconds(5f);
+        if (!LogicGame.Instance.isUseMagnet)
+            gameObject.SetActive(false);
+    }
 }

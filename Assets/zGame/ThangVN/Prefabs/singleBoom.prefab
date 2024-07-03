@@ -11,8 +11,7 @@ GameObject:
   - component: {fileID: 7261744900661957099}
   - component: {fileID: 529662655742302181}
   - component: {fileID: 6768446596993458830}
-  - component: {fileID: 2474439754787442621}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: nVisual
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -84,27 +83,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!135 &2474439754787442621
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2106552876766016778}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Radius: 0.5
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &4382447743720565762
 GameObject:
   m_ObjectHideFlags: 0
@@ -325,6 +303,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5064055335875943918}
   - component: {fileID: 4675449995763671385}
+  - component: {fileID: 7092303418523349731}
   m_Layer: 6
   m_Name: singleBoom
   m_TagString: Boom
@@ -366,3 +345,24 @@ MonoBehaviour:
   energy: {fileID: 7060350676920505877}
   coin: {fileID: 7702965860545870873}
   listRatio: 2800000050000000
+--- !u!135 &7092303418523349731
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8119201791261024643}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Radius: 0.5
+  m_Center: {x: 0, y: 0, z: 0}

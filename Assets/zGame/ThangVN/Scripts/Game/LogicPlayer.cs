@@ -10,16 +10,19 @@ public class LogicPlayer : MonoBehaviour
     public float offSetSpeed = 1f;
     public Material matBG;
     public GameObject cover;
+    public GameObject shield;
+    public GameObject magnet;
     public Transform spine;
     public GameObject vfx;
     [SerializeField] bool isMoving;
+    [SerializeField] bool isDie;
     [SerializeField] Animator anim;
     [SerializeField] LayerMask layerBoom;
-    [SerializeField] bool isDie;
     private void Awake()
     {
         ManagerEvent.RegEvent(EventCMD.EVENT_USE_EFFECT, UseEffect);
     }
+
 
     private void FixedUpdate()
     {
@@ -74,10 +77,10 @@ public class LogicPlayer : MonoBehaviour
     }
     private void OnTriggerEnter(Collider other)
     {
-        if (LogicGame.Instance.IsInLayerMask(other.transform.parent.gameObject, layerBoom))
+        if (LogicGame.Instance.IsInLayerMask(other.gameObject, layerBoom))
         {
             Debug.Log("Play Anim Die");
-            Vector3 posParticle = new Vector3(other.transform.parent.transform.position.x, transform.position.y, 0);
+            Vector3 posParticle = new Vector3(other.transform.position.x, transform.position.y, 0);
             LogicGame.Instance.singleBoomPool.Spawn(posParticle, true);
             isDie = true;
         }
