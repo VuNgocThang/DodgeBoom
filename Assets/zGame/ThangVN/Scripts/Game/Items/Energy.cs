@@ -6,12 +6,7 @@ using UnityEngine;
 public class Energy : MonoBehaviour
 {
     [SerializeField] LayerMask layerPlayer;
-    //public Rigidbody rb;
-    //private void Awake()
-    //{
-    //    rb = GetComponent<Rigidbody>();
-    //}
-
+    [SerializeField] TrailRenderer trail;
     public void Init()
     {
         transform.DOLocalJump(new Vector3(transform.localPosition.x + Random.Range(-2f, 2f), -7f, 0f), 2, 2, 0.3f);
@@ -27,7 +22,14 @@ public class Energy : MonoBehaviour
                 SaveGame.Energy += 50;
             }
 
-            transform.gameObject.SetActive(false);
+            if (trail != null) trail.enabled = true;
+            Vector3 targetPosition = Camera.main.ScreenToWorldPoint(PopupInGame.Instance.energyUIPosition.position);
+            transform.DOMove(targetPosition, 0.3f).OnComplete(() =>
+            {
+                if (trail != null) trail.enabled = false;
+                gameObject.SetActive(false);
+            });
+            //transform.gameObject.SetActive(false);
         }
     }
     float speed = 3f;
@@ -37,7 +39,6 @@ public class Energy : MonoBehaviour
         if (LogicGame.Instance.isUseMagnet)
         {
             Vector3 posPlayer = LogicGame.Instance.player.transform.position;
-            //float distance = Vector3.Distance(transform.position, posPlayer);
             Vector3 direction = (posPlayer - transform.position).normalized;
             transform.Translate(direction * speed * Time.deltaTime, Space.World);
         }

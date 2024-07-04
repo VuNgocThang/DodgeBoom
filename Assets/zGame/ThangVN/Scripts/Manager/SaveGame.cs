@@ -103,7 +103,7 @@ public static class SaveGame
         }
         get
         {
-            if (bestScore == -1) bestScore = ES3.Load(BESTSCORE, 0);
+            if (bestScore == -1f) bestScore = ES3.Load(BESTSCORE, 0f);
             return bestScore;
         }
     }

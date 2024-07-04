@@ -1,30 +1,32 @@
 using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
+using System.Drawing;
 using UnityEngine;
 
 public class Coin : MonoBehaviour
 {
     [SerializeField] LayerMask layerPlayer;
-    //public Rigidbody rb;
-    //private void Awake()
-    //{
-    //    rb = GetComponent<Rigidbody>();
-    //}
+    [SerializeField] TrailRenderer trail;
+
     public void Init()
     {
-        //rb.velocity = Vector2.zero;
-        //rb.AddForce(new Vector2(Random.Range(-1f, 1f), 5f), ForceMode.Impulse);
-
         transform.DOLocalJump(new Vector3(transform.localPosition.x + Random.Range(-2f, 2f), -7f, 0f), 2, 2, 0.3f);
-        //StartCoroutine(ReturnFalse());
     }
     private void OnTriggerEnter(Collider other)
     {
         if (LogicGame.Instance.IsInLayerMask(other.gameObject, layerPlayer))
         {
-            SaveGame.Coin += 1;
-            transform.gameObject.SetActive(false);
+            //transform.gameObject.SetActive(false);
+
+            if (trail != null) trail.enabled = true;
+            Vector3 targetPosition = Camera.main.ScreenToWorldPoint(PopupInGame.Instance.coinUIPosition.position);
+            transform.DOMove(targetPosition, 0.3f).OnComplete(() =>
+            {
+                SaveGame.Coin += 1;
+                if (trail != null) trail.enabled = false;
+                gameObject.SetActive(false);
+            });
         }
     }
     float speed = 4f;
@@ -34,7 +36,6 @@ public class Coin : MonoBehaviour
         if (LogicGame.Instance.isUseMagnet)
         {
             Vector3 posPlayer = LogicGame.Instance.player.transform.position;
-            //float distance = Vector3.Distance(transform.position, posPlayer);
             Vector3 direction = (posPlayer - transform.position).normalized;
             transform.Translate(direction * speed * Time.deltaTime, Space.World);
         }

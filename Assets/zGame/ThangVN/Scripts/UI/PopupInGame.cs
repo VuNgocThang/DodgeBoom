@@ -7,6 +7,7 @@ using UnityEngine.UI;
 
 public class PopupInGame : MonoBehaviour
 {
+    public static PopupInGame Instance;
     [SerializeField] EasyButton btnMenu, btnUseEffect;
     [SerializeField] TextMeshProUGUI txtCoin, txtTimer, txtTimeCountDown;
     [SerializeField] GameObject countDownTimeEffect;
@@ -15,8 +16,12 @@ public class PopupInGame : MonoBehaviour
     [SerializeField] Animator animBtnUseEffect;
     public bool canPlay;
 
+    public Transform coinUIPosition;
+    public Transform energyUIPosition;
+
     private void Awake()
     {
+        Instance = this;
         btnMenu.OnClick(ShowMenu);
 
         btnUseEffect.OnClick(() =>

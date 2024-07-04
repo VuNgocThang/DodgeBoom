@@ -15,6 +15,14 @@ public class SBoom : IItems
         Debug.Log("use sBoom");
         foreach (GameObject boom in LogicGame.Instance.listBoom)
         {
+            IBoom singleBoom = boom.GetComponent<IBoom>();
+            if (singleBoom != null)
+            {
+                Vector3 posItem = singleBoom.transform.position;
+
+                singleBoom.SpawnParticle(posItem, posItem);
+            }
+
             LogicGame.Instance.bigBoomPool.Spawn(boom.transform.position, true);
             boom.SetActive(false);
         }

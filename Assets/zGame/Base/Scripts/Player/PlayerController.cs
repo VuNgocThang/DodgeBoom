@@ -22,7 +22,7 @@ namespace ntDev
             if (LogicControl.ControllerMove != null) LogicControl.ControllerMove.OnEventDragV = OnMove;
             if (LogicControl.ControllerMove != null) LogicControl.ControllerMove.OnEventRelease = (f) => OnMove(Vector3.zero);
             if (LogicControl.ControllerCam != null) LogicControl.ControllerCam.OnEventDragD = OnMoveCam;
-            if (LogicControl.Btn != null) LogicControl.Btn.OnEventTouch = () => goJumping = true;
+            //if (LogicControl.Btn != null) LogicControl.Btn.OnEventTouch = () => goJumping = true;
         }
 
         Vector3 vMove;

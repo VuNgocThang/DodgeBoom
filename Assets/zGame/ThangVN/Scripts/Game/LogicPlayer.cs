@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
 using ntDev;
+using Spine.Unity;
 
 public class LogicPlayer : MonoBehaviour
 {
@@ -14,6 +15,7 @@ public class LogicPlayer : MonoBehaviour
     public GameObject magnet;
     public Transform spine;
     public GameObject vfx;
+    public SkeletonMecanim spinMecanim;
     [SerializeField] bool isMoving;
     [SerializeField] bool isDie;
     [SerializeField] Animator anim;
@@ -23,6 +25,10 @@ public class LogicPlayer : MonoBehaviour
         ManagerEvent.RegEvent(EventCMD.EVENT_USE_EFFECT, UseEffect);
     }
 
+    private void Start()
+    {
+        
+    }
 
     private void FixedUpdate()
     {
@@ -82,9 +88,9 @@ public class LogicPlayer : MonoBehaviour
             Debug.Log("Play Anim Die");
             Vector3 posParticle = new Vector3(other.transform.position.x, transform.position.y, 0);
             LogicGame.Instance.singleBoomPool.Spawn(posParticle, true);
-            isDie = true;
-            LogicGame.Instance.isPauseGame = true;
-            StartCoroutine(RaiseEventLose());
+            //isDie = true;
+            //LogicGame.Instance.isPauseGame = true;
+            //StartCoroutine(RaiseEventLose());
         }
     }
 

@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.172768, g: 0.21589167, b: 0.29782546, a: 1}
+  m_IndirectSpecularColor: {r: 0.172768, g: 0.21589169, b: 0.29782546, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -190,6 +190,41 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 6849985478696299126, guid: 4077c53168bb4a04a97d56ed42db6cf6, type: 3}
   m_PrefabInstance: {fileID: 93140056}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &147542726
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 147542727}
+  m_Layer: 5
+  m_Name: posUICoin
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &147542727
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 147542726}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1014161441}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &169469337
 GameObject:
   m_ObjectHideFlags: 0
@@ -1127,7 +1162,7 @@ Transform:
   m_GameObject: {fileID: 442134176}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 2.02, y: -6.33, z: 0}
+  m_LocalPosition: {x: 0, y: -5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1206,8 +1241,9 @@ MonoBehaviour:
   cover: {fileID: 1046719807}
   shield: {fileID: 2043750208}
   magnet: {fileID: 5621085806496183545}
-  spine: {fileID: 552895168}
+  spine: {fileID: 0}
   vfx: {fileID: 93140058}
+  spinMecanim: {fileID: 0}
   isMoving: 0
   isDie: 0
   anim: {fileID: 552895165}
@@ -1227,6 +1263,7 @@ GameObject:
   - component: {fileID: 552895166}
   - component: {fileID: 552895165}
   - component: {fileID: 552895164}
+  - component: {fileID: 552895169}
   m_Layer: 7
   m_Name: SpinePlayer
   m_TagString: Untagged
@@ -1345,14 +1382,13 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 552895163}
   m_Mesh: {fileID: 0}
---- !u!4 &552895168
-Transform:
+--- !u!224 &552895168
+RectTransform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 552895163}
-  serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.4, y: 0.4, z: 0.4}
@@ -1360,6 +1396,19 @@ Transform:
   m_Children: []
   m_Father: {fileID: 442134177}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!222 &552895169
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 552895163}
+  m_CullTransparentMesh: 1
 --- !u!1 &569271117
 GameObject:
   m_ObjectHideFlags: 0
@@ -2117,6 +2166,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1055308587}
+  - {fileID: 147542727}
   m_Father: {fileID: 587981016}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
@@ -3723,6 +3773,8 @@ MonoBehaviour:
   imgProgress: {fileID: 661419933}
   animBtnUseEffect: {fileID: 2068195904}
   canPlay: 0
+  coinUIPosition: {fileID: 147542727}
+  energyUIPosition: {fileID: 1319356289}
 --- !u!1 &1839508378
 GameObject:
   m_ObjectHideFlags: 0
@@ -4277,6 +4329,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9c02c40971853c54fb66b4e09e31b461, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  minX: -4.2
+  maxX: 4.4
   target: {fileID: 442134177}
 --- !u!114 &2103820458
 MonoBehaviour:

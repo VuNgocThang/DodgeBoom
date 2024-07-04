@@ -344,7 +344,7 @@ MonoBehaviour:
   offSetSpeed: 3
   energy: {fileID: 7060350676920505877}
   coin: {fileID: 7702965860545870873}
-  listRatio: 2800000050000000
+  listRatio: 3200000064000000
 --- !u!135 &7092303418523349731
 SphereCollider:
   m_ObjectHideFlags: 0

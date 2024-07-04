@@ -3,14 +3,14 @@ using System.Collections.Generic;
 using ntDev;
 using System;
 using UnityEngine;
-using UnityEngine.SceneManagement;
-using Spine;
+using TMPro;
 
 public class PopupHomeUI : MonoBehaviour
 {
     public static PopupHomeUI Ins;
     [SerializeField] EasyButton btnPlay, btnShop, btnNoAds, btnSetting;
     [SerializeField] public Animator anim;
+    [SerializeField] TextMeshProUGUI txtCoin, txtBestScore;
 
     private void Awake()
     {
@@ -25,6 +25,13 @@ public class PopupHomeUI : MonoBehaviour
     public void Show()
     {
         StartCoroutine(PlayAnimShow());
+      
+    }
+
+    private void Start()
+    {
+        txtCoin.text = SaveGame.Coin.ToString();
+        txtBestScore.text = string.Format("{0:00}:{1:00}", (int)SaveGame.BestScore / 60, (int)SaveGame.BestScore % 60);
     }
 
     IEnumerator ShowPopupSetting()
@@ -52,5 +59,8 @@ public class PopupHomeUI : MonoBehaviour
     {
         yield return new WaitForSeconds(GameConfig.TIMEHIDE);
         anim.Play("Show");
+
+        txtCoin.text = SaveGame.Coin.ToString();
+        txtBestScore.text = string.Format("{0:00}:{1:00}", (int)SaveGame.BestScore / 60, (int)SaveGame.BestScore % 60);
     }
 }

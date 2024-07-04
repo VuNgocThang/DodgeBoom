@@ -150,8 +150,9 @@ public class LogicGame : MonoBehaviour
         if (timeSpawnItem > 0f) timeSpawnItem -= Time.deltaTime;
         else
         {
+            //timeSpawnItem = UnityEngine.Random.Range(25f, 30f);
             timeSpawnItem = 5f;
-            Debug.Log("spawn item");
+            //int index = UnityEngine.Random.Range(0, 3);
             int index = UnityEngine.Random.Range(2, 3);
             SelectItemSpawn(index);
         }

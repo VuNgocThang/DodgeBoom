@@ -2,9 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using ntDev;
+using TMPro;
+
 public class PopupShop : Popup
 {
     public EasyButton btnCharacter, btnItem, btnCoin;
+    [SerializeField] TextMeshProUGUI txtCoin;
     public static async void Show()
     {
         PopupShop pop = await ManagerPopup.ShowPopup<PopupShop>();
@@ -23,6 +26,7 @@ public class PopupShop : Popup
     public override void Init()
     {
         base.Init();
+        txtCoin.text = SaveGame.Coin.ToString();
     }
 
     public override void Hide()
@@ -43,7 +47,7 @@ public class PopupShop : Popup
     {
         base.Hide();
         yield return new WaitForSeconds(GameConfig.TIMEHIDE);
-        //Show Popup Item;
+        PopupShopItem.Show();
 
     }
 

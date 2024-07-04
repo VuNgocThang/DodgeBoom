@@ -1366,6 +1366,7 @@ MonoBehaviour:
   btnCharacter: {fileID: 4397964974359757309}
   btnItem: {fileID: 4309814719671659828}
   btnCoin: {fileID: 1664350911318792496}
+  txtCoin: {fileID: 5465756523717825336}
 --- !u!1 &7663245647942370938
 GameObject:
   m_ObjectHideFlags: 0
