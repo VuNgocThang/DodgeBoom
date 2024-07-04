@@ -13,11 +13,11 @@ namespace ntDev
 
         bool IsTouch = false;
 
-        public Action OnEventTouch;
+        public Action<Vector3> OnEventTouch;
         public Action OnEventDrag;
         public Action<Vector3> OnEventDragV;
         public Action<Vector3> OnEventDragD;
-        public Action<float> OnEventRelease;
+        public Action<Vector3> OnEventRelease;
 
         Vector3 defaultPos;
         void Start()
@@ -26,25 +26,26 @@ namespace ntDev
                 defaultPos = rectBG.localPosition;
         }
 
-        Vector3 startPos;
+        public Vector3 StartPos;
         Vector3 bgPos;
         public virtual void OnPointerDown(PointerEventData eventData)
         {
             IsTouch = true;
-            startPos = eventData.position;
-            currentPos = startPos;
+            StartPos = eventData.position;
+            currentPos = StartPos;
             lastPos = currentPos;
-            OnEventTouch?.Invoke();
-            timer = 0;
+            OnEventTouch?.Invoke(StartPos);
+            Time = 0;
 
             if (IsController)
             {
-                bgPos = startPos;
+                bgPos = StartPos;
                 bgPos.x /= transform.lossyScale.x;
                 bgPos.y /= transform.lossyScale.y;
                 if (rectBG != null) rectBG.localPosition = bgPos;
                 if (transControl != null) transControl.localPosition = Vector3.zero;
             }
+            // ManagerSound.PlaySound(ManagerSound.Instance.aClick);
         }
         Vector3 currentPos;
         Vector3 lastPos;
@@ -55,7 +56,7 @@ namespace ntDev
             if (IsTouch)
             {
                 currentPos = eventData.position;
-                V = currentPos - startPos;
+                V = currentPos - StartPos;
                 D = currentPos - lastPos;
                 OnEventDragV?.Invoke(V);
                 OnEventDragD?.Invoke(D);
@@ -71,8 +72,8 @@ namespace ntDev
         }
         public virtual void OnPointerUp(PointerEventData eventData)
         {
-            OnEventRelease?.Invoke(timer);
-            timer = -1;
+            OnEventRelease?.Invoke(eventData.position);
+            Time = -1;
             if (rectBG != null) rectBG.localPosition = defaultPos;
             if (transControl != null) transControl.localPosition = Vector3.zero;
             IsTouch = false;
@@ -81,18 +82,18 @@ namespace ntDev
         {
             if (IsTouch)
             {
-                OnEventRelease?.Invoke(timer);
-                timer = -1;
+                OnEventRelease?.Invoke(eventData.position);
+                Time = -1;
             }
             // if (rectBG != null) rectBG.localPosition = defaultPos;
             // if (transControl != null) transControl.localPosition = Vector3.zero;
             // IsTouch = false;
         }
 
-        float timer = -1;
+        public float Time = -1;
         void Update()
         {
-            if (timer >= 0) timer += Ez.TimeMod;
+            if (Time >= 0) Time += Ez.TimeMod;
         }
     }
 }
