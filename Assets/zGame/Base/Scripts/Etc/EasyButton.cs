@@ -56,6 +56,7 @@ namespace ntDev
             if (eventData.button != PointerEventData.InputButton.Left || disable) return;
             if (act != null) act();
             else if (actO != null) actO(o);
+
             //if (animEasyButton != null) animEasyButton.Play("Clicked");
             //if (ManagerAudio.Data.soundClick != null && ManagerAudio.Data != null) ManagerAudio.PlaySound(ManagerAudio.Data.soundEasyButton);
         }

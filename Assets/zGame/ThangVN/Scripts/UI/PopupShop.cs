@@ -55,7 +55,6 @@ public class PopupShop : Popup
     {
         base.Hide();
         yield return new WaitForSeconds(GameConfig.TIMEHIDE);
-        //Show Popup Coin;
-
+        PopupShopCoin.Show();
     }
 }

@@ -4,12 +4,20 @@ using UnityEngine;
 using ntDev;
 using TMPro;
 
-public class PopupShopItem : Popup
+public class PopupShopCoin : Popup
 {
     [SerializeField] TextMeshProUGUI txtCoin;
+    [SerializeField] EasyButton btn500, btn1000, btn1500, btn2000;
+    private void Awake()
+    {
+        btn500.OnClick(() => SaveGame.Coin += 500);
+        btn1000.OnClick(() => SaveGame.Coin += 1000);
+        btn1500.OnClick(() => SaveGame.Coin += 1500);
+        btn2000.OnClick(() => SaveGame.Coin += 2000);
+    }
     public static async void Show()
     {
-        PopupShopItem pop = await ManagerPopup.ShowPopup<PopupShopItem>();
+        PopupShopCoin pop = await ManagerPopup.ShowPopup<PopupShopCoin>();
         pop.Init();
     }
 
@@ -25,17 +33,13 @@ public class PopupShopItem : Popup
         StartCoroutine(ShowPopupShop());
     }
 
-
     private void Update()
     {
         txtCoin.text = SaveGame.Coin.ToString();
     }
-
     IEnumerator ShowPopupShop()
     {
         yield return new WaitForSeconds(GameConfig.TIMEHIDE);
         PopupShop.Show();
     }
-
-
 }

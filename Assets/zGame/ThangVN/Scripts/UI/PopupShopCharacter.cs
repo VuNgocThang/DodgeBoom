@@ -49,10 +49,14 @@ public class PopupShopCharacter : PopupCharacterBase
     void Upgrade()
     {
         CharacterData.Character charData = characterData.listCharacter.Find(x => x.index == index);
-        if (charData != null)
+        if (charData != null && SaveGame.Coin >= 200)
         {
             if (charData.levelSkill >= 3) return;
-            else charData.levelSkill++;
+            else
+            {
+                SaveGame.Coin -= 200;
+                charData.levelSkill++;
+            }
         }
         SaveData();
         InitData(index);
@@ -64,8 +68,9 @@ public class PopupShopCharacter : PopupCharacterBase
         characterData.indexLastChar++;
 
         CharacterData.Character charData = characterData.listCharacter.Find(x => x.index == characterData.indexLastChar);
-        if (charData != null)
+        if (charData != null && SaveGame.Coin >= 500)
         {
+            SaveGame.Coin -= 500;
             charData.unlocked = true;
         }
 
