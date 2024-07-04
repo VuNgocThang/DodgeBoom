@@ -80,6 +80,7 @@ public class PopupInGame : MonoBehaviour
 
     void DecreaseHeart(object e)
     {
+        listHeart[listHeart.Count - 1].SetActive(false);
         listHeart.RemoveAt(listHeart.Count - 1);
     }
 }

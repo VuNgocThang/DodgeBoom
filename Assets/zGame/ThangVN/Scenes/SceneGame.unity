@@ -1887,8 +1887,8 @@ RectTransform:
   m_Children:
   - {fileID: 1553728547}
   - {fileID: 1799227796}
-  - {fileID: 569271118}
   - {fileID: 57930256254097173}
+  - {fileID: 569271118}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -3758,6 +3758,8 @@ MonoBehaviour:
   timeCountDownEffect: -1
   imgProgress: {fileID: 661419933}
   animBtnUseEffect: {fileID: 2068195904}
+  listHeart:
+  - {fileID: 1560794204}
   canPlay: 0
   coinUIPosition: {fileID: 147542727}
   energyUIPosition: {fileID: 1319356289}
