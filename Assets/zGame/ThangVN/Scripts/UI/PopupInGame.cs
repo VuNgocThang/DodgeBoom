@@ -14,6 +14,7 @@ public class PopupInGame : MonoBehaviour
     [SerializeField] float timeCountDownEffect = -1;
     [SerializeField] private Image imgProgress;
     [SerializeField] Animator animBtnUseEffect;
+    [SerializeField] List<GameObject> listHeart;
     public bool canPlay;
 
     public Transform coinUIPosition;
@@ -34,6 +35,7 @@ public class PopupInGame : MonoBehaviour
         });
 
         ManagerEvent.RegEvent(EventCMD.EVENT_LOSE, ShowPopupLose);
+        ManagerEvent.RegEvent(EventCMD.EVENT_LOSE_HEART, DecreaseHeart);
     }
 
     void ShowMenu()
@@ -74,5 +76,10 @@ public class PopupInGame : MonoBehaviour
     void ShowPopupLose(object e)
     {
         PopupLose.Show();
+    }
+
+    void DecreaseHeart(object e)
+    {
+        listHeart.RemoveAt(listHeart.Count - 1);
     }
 }

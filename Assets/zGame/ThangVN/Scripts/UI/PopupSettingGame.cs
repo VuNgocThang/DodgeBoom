@@ -29,7 +29,11 @@ public class PopupSettingGame : Popup
             ToggleBtnSound();
         });
 
-        btnExit.OnClick(() => SceneManager.LoadScene("SceneHome"));
+        btnExit.OnClick(() =>
+        {
+            ManagerEvent.ClearEvent();
+            SceneManager.LoadScene("SceneHome");
+        });
     }
 
     public override void Init()

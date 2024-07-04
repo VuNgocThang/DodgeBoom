@@ -20,6 +20,7 @@ public class Coin : MonoBehaviour
             //transform.gameObject.SetActive(false);
 
             if (trail != null) trail.enabled = true;
+            
             Vector3 targetPosition = Camera.main.ScreenToWorldPoint(PopupInGame.Instance.coinUIPosition.position);
             transform.DOMove(targetPosition, 0.3f).OnComplete(() =>
             {

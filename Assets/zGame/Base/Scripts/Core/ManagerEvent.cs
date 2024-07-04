@@ -71,6 +71,7 @@ namespace ntDev
         EVENT_SWITCH,
 
         EVENT_USE_EFFECT,
+        EVENT_LOSE_HEART,
     }
 
     public static class ManagerEvent

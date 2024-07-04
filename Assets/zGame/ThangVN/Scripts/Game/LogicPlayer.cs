@@ -118,6 +118,7 @@ public class LogicPlayer : MonoBehaviour
 
     IEnumerator RaiseEventLose()
     {
+        ManagerEvent.RaiseEvent(EventCMD.EVENT_LOSE_HEART);
         yield return new WaitForSeconds(1f);
         ManagerEvent.RaiseEvent(EventCMD.EVENT_LOSE);
     }
