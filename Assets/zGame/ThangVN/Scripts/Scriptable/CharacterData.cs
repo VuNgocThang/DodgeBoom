@@ -9,15 +9,14 @@ public class CharacterData : ScriptableObject
 {
     public List<Character> listCharacter;
     public int indexLastChar;
-    public int currentIndex;
-
+    public int indexToPlay;
+    public string nameToPlay;
     [Serializable]
     public class Character
     {
         public int index;
         public string name;
         public bool unlocked;
-        public Sprite sprite;
         public int levelSkill;
     }
 }

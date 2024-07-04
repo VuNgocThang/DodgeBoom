@@ -5,19 +5,20 @@ using ntDev;
 using TMPro;
 using UnityEngine.UI;
 using System.Linq;
+using Spine.Unity;
+using System;
 
 public class PopupCharacterBase : Popup
 {
     [SerializeField] protected CharacterData characterData;
-    [SerializeField] protected int index = 0;
+    [SerializeField] public int index = 0;
     [SerializeField] protected List<CharacterData.Character> listCharacterUnlocked;
     [SerializeField] protected TextMeshProUGUI txtNameChar;
-    [SerializeField] protected Image imgChar;
+    //[SerializeField] protected Image imgChar;
     [SerializeField] protected List<GameObject> countSkills;
-
+    [SerializeField] SkeletonGraphic spine;
     protected virtual void Awake()
     {
-        // Các phần tử UI và sự kiện chung
     }
 
     public override void Init()
@@ -46,9 +47,13 @@ public class PopupCharacterBase : Popup
         for (int i = 0; i < countSkills.Count; i++)
             countSkills[i].SetActive(false);
         txtNameChar.text = listCharacterUnlocked[indexer].name;
-        if (imgChar != null)
-            imgChar.sprite = listCharacterUnlocked[indexer].sprite;
-        Debug.Log(listCharacterUnlocked[indexer].levelSkill + " ___ at " + indexer);
+        if (spine != null)
+        {
+            spine.Skeleton.SetSkin(listCharacterUnlocked[indexer].name);
+            spine.Skeleton.SetSlotsToSetupPose();
+            spine.LateUpdate();
+        }
+
         for (int i = 0; i < listCharacterUnlocked[indexer].levelSkill; i++)
             countSkills[i].SetActive(true);
 
@@ -73,8 +78,12 @@ public class PopupCharacterBase : Popup
         for (int i = 0; i < countSkills.Count; i++) countSkills[i].SetActive(false);
 
         txtNameChar.text = listCharacterUnlocked[index].name;
-        if (imgChar != null)
-            imgChar.sprite = listCharacterUnlocked[index].sprite;
+        if (spine != null)
+        {
+            spine.Skeleton.SetSkin(listCharacterUnlocked[index].name);
+            spine.Skeleton.SetSlotsToSetupPose();
+            spine.LateUpdate();
+        }
         for (int i = 0; i < listCharacterUnlocked[index].levelSkill; i++)
         {
             countSkills[i].SetActive(true);
@@ -88,8 +97,8 @@ public class PopupCharacterBase : Popup
 
         if (!string.IsNullOrEmpty(json))
         {
-            CharacterDataAll allQuest = JsonUtility.FromJson<CharacterDataAll>(json);
-            characterData.listCharacter = allQuest.characters.ToList();
+            CharacterDataAll character = JsonUtility.FromJson<CharacterDataAll>(json);
+            characterData.listCharacter = character.characters.ToList();
         }
     }
 

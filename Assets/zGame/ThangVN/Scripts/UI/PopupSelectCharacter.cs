@@ -30,6 +30,17 @@ public class PopupSelectCharacter : PopupCharacterBase
     void PlayGame()
     {
         base.Hide();
+        characterData.indexToPlay = index;
+
+        CharacterData.Character charData = characterData.listCharacter.Find(x => x.index == characterData.indexToPlay);
+        if (charData != null)
+        {
+            characterData.nameToPlay = charData.name;
+        }
+
+        SaveData();
+        Debug.Log(characterData.nameToPlay);
+
         StartCoroutine(ShowUIGame());
     }
 

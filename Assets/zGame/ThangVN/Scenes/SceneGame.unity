@@ -1241,15 +1241,16 @@ MonoBehaviour:
   cover: {fileID: 1046719807}
   shield: {fileID: 2043750208}
   magnet: {fileID: 5621085806496183545}
-  spine: {fileID: 0}
+  spine: {fileID: 552895168}
   vfx: {fileID: 93140058}
-  spinMecanim: {fileID: 0}
   isMoving: 0
   isDie: 0
   anim: {fileID: 552895165}
   layerBoom:
     serializedVersion: 2
     m_Bits: 64
+  characterData: {fileID: 11400000, guid: c205903fee410e843a4cb7bc02b1a56b, type: 2}
+  spineMecanim: {fileID: 552895164}
 --- !u!1 &552895163
 GameObject:
   m_ObjectHideFlags: 0

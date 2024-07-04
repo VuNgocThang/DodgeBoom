@@ -1,4 +1,5 @@
 ﻿using ntDev;
+using Spine.Unity;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -23,6 +24,7 @@ public class LogicGame : MonoBehaviour
 {
     public static LogicGame Instance;
     public LogicPlayer player;
+  
     [SerializeField] float timeSpawn = -1f;
     [SerializeField] List<ListSpawnPos> listContaineListSpawn;
     [SerializeField] CustomPoolController poolManager;
@@ -68,6 +70,8 @@ public class LogicGame : MonoBehaviour
         SaveGame.Energy = 0;
         isPauseGame = false;
     }
+
+  
 
     private void Update()
     {

@@ -15,11 +15,12 @@ public class LogicPlayer : MonoBehaviour
     public GameObject magnet;
     public Transform spine;
     public GameObject vfx;
-    public SkeletonMecanim spinMecanim;
     [SerializeField] bool isMoving;
     [SerializeField] bool isDie;
     [SerializeField] Animator anim;
     [SerializeField] LayerMask layerBoom;
+    [SerializeField] CharacterData characterData;
+    [SerializeField] SkeletonMecanim spineMecanim;
     private void Awake()
     {
         ManagerEvent.RegEvent(EventCMD.EVENT_USE_EFFECT, UseEffect);
@@ -27,7 +28,15 @@ public class LogicPlayer : MonoBehaviour
 
     private void Start()
     {
-        
+        LoadSkinSpine();
+
+    }
+
+    void LoadSkinSpine()
+    {
+        spineMecanim.Skeleton.SetSkin(characterData.nameToPlay);
+        spineMecanim.Skeleton.SetSlotsToSetupPose();
+        spineMecanim.LateUpdate();
     }
 
     private void FixedUpdate()

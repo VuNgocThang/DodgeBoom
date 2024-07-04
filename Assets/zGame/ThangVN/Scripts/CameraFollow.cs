@@ -14,7 +14,6 @@ public class CameraFollow : MonoBehaviour
 
     private void FixedUpdate()
     {
-        Debug.Log(target.name);
         if (target == null) return;
 
         Vector3 targetPosition = target.position + offSet;
