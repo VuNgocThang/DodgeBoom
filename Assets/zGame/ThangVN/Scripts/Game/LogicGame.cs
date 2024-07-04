@@ -2,11 +2,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using Unity.Collections.LowLevel.Unsafe;
 using UnityEngine;
-using UnityEngine.Pool;
-using UnityEngine.SocialPlatforms;
-using Utilities.Common;
 
 [Serializable]
 public class ListSpawnPos
@@ -53,9 +49,8 @@ public class LogicGame : MonoBehaviour
     public float timeUseMagnet;
     public float timeUseShield;
 
+    public bool isPauseGame;
 
-    public bool isUseShield;
-    public bool isUseSBoom;
     [SerializeField] float timeSpawnItem = 0f;
 
     private void Awake()
@@ -71,6 +66,7 @@ public class LogicGame : MonoBehaviour
         bigBoomPool = new CustomPool<ParticleSystem>(bigBoomPrefab, 5, holderParticles, false);
         fireBoomPool = new CustomPool<ParticleSystem>(fireBoomPrefab, 5, holderParticles, false);
         SaveGame.Energy = 0;
+        isPauseGame = false;
     }
 
     private void Update()
@@ -91,6 +87,7 @@ public class LogicGame : MonoBehaviour
         //        listBoom.Add(doubleBoom);
         //    }
         //}
+        if (isPauseGame) return;
 
         timerCount += Time.deltaTime;
         timeCanReset += Time.deltaTime;

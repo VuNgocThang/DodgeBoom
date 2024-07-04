@@ -13,6 +13,7 @@ public class PopupInGame : MonoBehaviour
     [SerializeField] float timeCountDownEffect = -1;
     [SerializeField] private Image imgProgress;
     [SerializeField] Animator animBtnUseEffect;
+    public bool canPlay;
 
     private void Awake()
     {
@@ -24,12 +25,15 @@ public class PopupInGame : MonoBehaviour
             LogicGame.Instance.isUseEnergy = true;
             countDownTimeEffect.SetActive(true);
             timeCountDownEffect = 10f;
+            canPlay = true;
         });
+
+        ManagerEvent.RegEvent(EventCMD.EVENT_LOSE, ShowPopupLose);
     }
 
     void ShowMenu()
     {
-
+        PopupSettingGame.Show();
     }
 
     private void Update()
@@ -49,7 +53,21 @@ public class PopupInGame : MonoBehaviour
             timeCountDownEffect = 0;
             countDownTimeEffect.SetActive(false);
             LogicGame.Instance.isUseEnergy = false;
+            if (canPlay) StartCoroutine(PlayAnimHide());
         }
         txtTimeCountDown.text = Mathf.RoundToInt(timeCountDownEffect).ToString();
+    }
+
+
+    IEnumerator PlayAnimHide()
+    {
+        animBtnUseEffect.Play("hide");
+        yield return new WaitForSeconds(0.25f);
+        canPlay = false;
+    }
+
+    void ShowPopupLose(object e)
+    {
+        PopupLose.Show();
     }
 }

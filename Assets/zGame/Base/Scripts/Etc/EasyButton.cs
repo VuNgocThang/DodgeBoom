@@ -71,9 +71,10 @@ namespace ntDev
             if (Down != null) Down.LposY(posY - DownPixel);
             scaleFlow = -1;
 
-            anim.Play("OnPointerDown");
+            if (anim != null)
+                anim.Play("OnPointerDown");
         }
-      
+
 
         public virtual void OnPointerUp(PointerEventData eventData)
         {
@@ -91,7 +92,9 @@ namespace ntDev
                 img.sprite = normalSprite;
             if (Down != null) Down.LposY(posY);
             scaleFlow = 1;
-            anim.Play("OnPointerUp");
+
+            if (anim != null)
+                anim.Play("OnPointerUp");
 
         }
 

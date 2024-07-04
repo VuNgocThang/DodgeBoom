@@ -11,7 +11,7 @@ namespace ntDev
     public class Popup : MonoBehaviour
     {
         [SerializeField] public EasyButton[] btnClose;
-        [SerializeField] Animator animator;
+        [SerializeField] public Animator animator;
 
 
         [SerializeField] bool init = false;
@@ -36,7 +36,7 @@ namespace ntDev
 
         IEnumerator ClosePopup()
         {
-            yield return new WaitForSeconds(1f);
+            yield return new WaitForSeconds(0.5f);
             gameObject.SetActive(false);
             ManagerEvent.RaiseEvent(EventCMD.EVENT_POPUP_CLOSE, this);
         }

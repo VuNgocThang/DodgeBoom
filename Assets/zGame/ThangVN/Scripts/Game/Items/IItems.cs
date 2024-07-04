@@ -23,6 +23,8 @@ public class IItems : MonoBehaviour
 
     public virtual void Update()
     {
+        if (LogicGame.Instance.isPauseGame) return;
+
         Vector3 newPosition = transform.position;
         if (newPosition.y > -6.5f)
         {

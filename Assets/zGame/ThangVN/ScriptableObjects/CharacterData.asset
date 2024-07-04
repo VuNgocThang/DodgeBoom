@@ -16,21 +16,22 @@ MonoBehaviour:
   - index: 0
     name: KaitouKid
     unlocked: 1
-    sprite: {fileID: 21300000, guid: 3432d2da9e9fc1142b72ab606fbde22e, type: 3}
+    sprite: {fileID: 0}
     levelSkill: 1
   - index: 1
     name: KudoShinichi
     unlocked: 0
-    sprite: {fileID: 21300000, guid: 75e3aacfed2c80f4d9970d7889081d22, type: 3}
+    sprite: {fileID: 0}
     levelSkill: 0
   - index: 2
     name: Ran Mori
     unlocked: 0
-    sprite: {fileID: 21300000, guid: 5c4887a06de033e4595a11f18af9814b, type: 3}
+    sprite: {fileID: 0}
     levelSkill: 0
   - index: 3
     name: Soraka
     unlocked: 0
-    sprite: {fileID: 21300000, guid: a0a766b3d66b1b34d9d9831afca3f65d, type: 3}
+    sprite: {fileID: 0}
     levelSkill: 0
   indexLastChar: 0
+  currentIndex: 0

@@ -83,6 +83,8 @@ public class LogicPlayer : MonoBehaviour
             Vector3 posParticle = new Vector3(other.transform.position.x, transform.position.y, 0);
             LogicGame.Instance.singleBoomPool.Spawn(posParticle, true);
             isDie = true;
+            LogicGame.Instance.isPauseGame = true;
+            StartCoroutine(RaiseEventLose());
         }
     }
 
@@ -98,4 +100,11 @@ public class LogicPlayer : MonoBehaviour
         yield return new WaitForSeconds(10f);
         cover.gameObject.SetActive(false);
     }
+
+    IEnumerator RaiseEventLose()
+    {
+        yield return new WaitForSeconds(1f);
+        ManagerEvent.RaiseEvent(EventCMD.EVENT_LOSE);
+    }
+
 }

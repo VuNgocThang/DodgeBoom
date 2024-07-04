@@ -44,16 +44,14 @@ public class PopupCharacterBase : Popup
     protected virtual void ShowDefaultData(int indexer)
     {
         for (int i = 0; i < countSkills.Count; i++)
-        {
             countSkills[i].SetActive(false);
-        }
         txtNameChar.text = listCharacterUnlocked[indexer].name;
-        imgChar.sprite = listCharacterUnlocked[indexer].sprite;
+        if (imgChar != null)
+            imgChar.sprite = listCharacterUnlocked[indexer].sprite;
         Debug.Log(listCharacterUnlocked[indexer].levelSkill + " ___ at " + indexer);
         for (int i = 0; i < listCharacterUnlocked[indexer].levelSkill; i++)
-        {
             countSkills[i].SetActive(true);
-        }
+
     }
 
     protected virtual void ShowNextChar()
@@ -72,12 +70,11 @@ public class PopupCharacterBase : Popup
 
     protected void UpdateCharacterDisplay(int index)
     {
-        for (int i = 0; i < countSkills.Count; i++)
-        {
-            countSkills[i].SetActive(false);
-        }
+        for (int i = 0; i < countSkills.Count; i++) countSkills[i].SetActive(false);
+
         txtNameChar.text = listCharacterUnlocked[index].name;
-        imgChar.sprite = listCharacterUnlocked[index].sprite;
+        if (imgChar != null)
+            imgChar.sprite = listCharacterUnlocked[index].sprite;
         for (int i = 0; i < listCharacterUnlocked[index].levelSkill; i++)
         {
             countSkills[i].SetActive(true);

@@ -5,11 +5,11 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 0
+  - enabled: 1
     path: Assets/zGame/ThangVN/Scenes/SceneHome.unity
-    guid: 7036a300a49f2dd4e80762b428940e83
-  - enabled: 0
+    guid: 0cd694ebaa7ba3a449e5f717c9843213
+  - enabled: 1
     path: Assets/zGame/ThangVN/Scenes/SceneGame.unity
-    guid: 52e50a5144eba8747a86b8926ae32e5a
+    guid: 0d41c3850334ffe4baa228beb2843ab4
   m_configObjects:
     com.unity.addressableassets: {fileID: 11400000, guid: 9b5d2afb506ad3a4fb2af348f79c1899, type: 2}

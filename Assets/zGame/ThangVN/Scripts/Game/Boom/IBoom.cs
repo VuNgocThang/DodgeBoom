@@ -23,6 +23,8 @@ public abstract class IBoom : MonoBehaviour
 
     public virtual void Update()
     {
+        if (LogicGame.Instance.isPauseGame) return;
+
         Vector3 newPosition = transform.position;
         newPosition.y -= 1f * offSetSpeed * Time.deltaTime;
         transform.position = newPosition;
