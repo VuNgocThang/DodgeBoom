@@ -97,9 +97,9 @@ public class LogicPlayer : MonoBehaviour
             Debug.Log("Play Anim Die");
             Vector3 posParticle = new Vector3(other.transform.position.x, transform.position.y, 0);
             LogicGame.Instance.singleBoomPool.Spawn(posParticle, true);
-            //isDie = true;
-            //LogicGame.Instance.isPauseGame = true;
-            //StartCoroutine(RaiseEventLose());
+            isDie = true;
+            LogicGame.Instance.isPauseGame = true;
+            StartCoroutine(RaiseEventLose());
         }
     }
 

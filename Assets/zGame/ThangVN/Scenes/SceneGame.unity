@@ -1285,7 +1285,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   skeletonDataAsset: {fileID: 11400000, guid: 5311aaa3fd6ba484ca82e1a2d8f0bc9d, type: 2}
-  initialSkinName: Naruto
+  initialSkinName: 
   fixPrefabOverrideViaMeshFilter: 2
   initialFlipX: 0
   initialFlipY: 0
@@ -1352,8 +1352,7 @@ MeshRenderer:
   m_RayTraceProcedural: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
-  m_Materials:
-  - {fileID: 2100000, guid: c8b7320a9d8551b459df07e71e43f98e, type: 2}
+  m_Materials: []
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1804,7 +1803,6 @@ GameObject:
   - component: {fileID: 883566815}
   - component: {fileID: 883566814}
   - component: {fileID: 883566813}
-  - component: {fileID: 883566817}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -1898,19 +1896,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
---- !u!114 &883566817
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 883566812}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bd74a5e116c94674092c566ef088ff5f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  characterData: {fileID: 11400000, guid: c205903fee410e843a4cb7bc02b1a56b, type: 2}
 --- !u!1 &883734423
 GameObject:
   m_ObjectHideFlags: 0
@@ -1942,10 +1927,10 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1943375889}
-  - {fileID: 198033068}
-  - {fileID: 1682302524}
   - {fileID: 1842412238}
   - {fileID: 169469338}
+  - {fileID: 1682302524}
+  - {fileID: 198033068}
   - {fileID: 1133888490}
   - {fileID: 442134177}
   m_Father: {fileID: 0}
@@ -4703,5 +4688,5 @@ SceneRoots:
   - {fileID: 2103820454}
   - {fileID: 1257534558}
   - {fileID: 1198719817}
-  - {fileID: 883734424}
   - {fileID: 883566816}
+  - {fileID: 883734424}
