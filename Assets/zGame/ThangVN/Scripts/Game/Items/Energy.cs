@@ -19,7 +19,7 @@ public class Energy : MonoBehaviour
         {
             if (!LogicGame.Instance.isUseEnergy)
             {
-                SaveGame.Energy += 50;
+                SaveGame.Energy += 5;
             }
 
             if (trail != null) trail.enabled = true;
