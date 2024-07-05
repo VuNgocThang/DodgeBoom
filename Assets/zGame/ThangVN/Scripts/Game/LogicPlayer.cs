@@ -15,12 +15,15 @@ public class LogicPlayer : MonoBehaviour
     public GameObject magnet;
     public Transform spine;
     public GameObject vfx;
-    [SerializeField] bool isMoving;
+    [SerializeField] public bool isMoving;
     [SerializeField] bool isDie;
-    [SerializeField] Animator anim;
+    [SerializeField] public Animator anim;
     [SerializeField] LayerMask layerBoom;
     [SerializeField] CharacterData characterData;
     [SerializeField] SkeletonMecanim spineMecanim;
+
+    [SerializeField] ButtonMove btnBack;
+    [SerializeField] ButtonMove btnForward;
     private void Awake()
     {
         ManagerEvent.RegEvent(EventCMD.EVENT_USE_EFFECT, UseEffect);
@@ -51,32 +54,16 @@ public class LogicPlayer : MonoBehaviour
 
         isMoving = false;
 
-        if (Input.GetKey(KeyCode.D))
+        if (Input.GetKey(KeyCode.D) || btnForward.isPressing)
         {
-            spine.localScale = new Vector3(0.4f, 0.4f, 0.4f);
-
-            isMoving = true;
-            vfx.gameObject.SetActive(true);
             anim.Play("run_slow");
-            if (transform.position.x < 10f)
-            {
-                transform.position = Vector3.Lerp(transform.position, new Vector3(transform.position.x + 0.2f * offSetSpeed, transform.position.y, 0), 0.1f * offSetSpeed);
-                //matBG.mainTextureOffset -= new Vector2(0.005f, 0f);
-            }
+            MoveForward();
         }
 
-        if (Input.GetKey(KeyCode.A))
+        if (Input.GetKey(KeyCode.A) || btnBack.isPressing)
         {
-            spine.localScale = new Vector3(-0.4f, 0.4f, 0.4f);
-
-            isMoving = true;
-            vfx.gameObject.SetActive(true);
             anim.Play("run_slow");
-            if (transform.position.x > -10f)
-            {
-                transform.position = Vector3.Lerp(transform.position, new Vector3(transform.position.x - 0.2f * offSetSpeed, transform.position.y, 0), 0.1f * offSetSpeed);
-                //matBG.mainTextureOffset += new Vector2(0.005f, 0f);
-            }
+            MoveBack();
         }
 
         if (!isMoving)
@@ -90,6 +77,31 @@ public class LogicPlayer : MonoBehaviour
             offSetSpeed += 0.2f;
         }
     }
+
+    public void MoveBack()
+    {
+        spine.localScale = new Vector3(-0.4f, 0.4f, 0.4f);
+        isMoving = true;
+        vfx.gameObject.SetActive(true);
+        if (transform.position.x > -10f)
+        {
+            transform.position = Vector3.Lerp(transform.position, new Vector3(transform.position.x - 0.2f * offSetSpeed, transform.position.y, 0), 0.1f * offSetSpeed);
+            //matBG.mainTextureOffset += new Vector2(0.005f, 0f);
+        }
+    }
+
+    public void MoveForward()
+    {
+        spine.localScale = new Vector3(0.4f, 0.4f, 0.4f);
+        isMoving = true;
+        vfx.gameObject.SetActive(true);
+        if (transform.position.x < 10f)
+        {
+            transform.position = Vector3.Lerp(transform.position, new Vector3(transform.position.x + 0.2f * offSetSpeed, transform.position.y, 0), 0.1f * offSetSpeed);
+            //matBG.mainTextureOffset -= new Vector2(0.005f, 0f);
+        }
+    }
+
     private void OnTriggerEnter(Collider other)
     {
         if (LogicGame.Instance.IsInLayerMask(other.gameObject, layerBoom))

@@ -63,7 +63,7 @@ public class LogicGame : MonoBehaviour
     private void Start()
     {
         timerCount = 0f;
-        timeSpawnItem = 5f;
+        timeSpawnItem = 25f;
         singleBoomPool = new CustomPool<ParticleSystem>(singleBoomPrefab, 5, holderParticles, false);
         bigBoomPool = new CustomPool<ParticleSystem>(bigBoomPrefab, 5, holderParticles, false);
         fireBoomPool = new CustomPool<ParticleSystem>(fireBoomPrefab, 5, holderParticles, false);
@@ -154,10 +154,10 @@ public class LogicGame : MonoBehaviour
         if (timeSpawnItem > 0f) timeSpawnItem -= Time.deltaTime;
         else
         {
-            //timeSpawnItem = UnityEngine.Random.Range(25f, 30f);
-            timeSpawnItem = 5f;
-            //int index = UnityEngine.Random.Range(0, 3);
-            int index = UnityEngine.Random.Range(2, 3);
+            timeSpawnItem = UnityEngine.Random.Range(25f, 30f);
+            //timeSpawnItem = 5f;
+            int index = UnityEngine.Random.Range(0, 3);
+            //int index = UnityEngine.Random.Range(2, 3);
             SelectItemSpawn(index);
         }
     }

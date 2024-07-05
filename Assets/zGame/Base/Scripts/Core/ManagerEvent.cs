@@ -72,6 +72,8 @@ namespace ntDev
 
         EVENT_USE_EFFECT,
         EVENT_LOSE_HEART,
+        EVENT_FORWARD,
+        EVENT_BACKWARD,
     }
 
     public static class ManagerEvent

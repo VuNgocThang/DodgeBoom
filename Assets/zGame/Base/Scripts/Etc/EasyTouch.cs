@@ -46,6 +46,7 @@ namespace ntDev
                 if (transControl != null) transControl.localPosition = Vector3.zero;
             }
             // ManagerSound.PlaySound(ManagerSound.Instance.aClick);
+            Debug.Log("Down");
         }
         Vector3 currentPos;
         Vector3 lastPos;

@@ -4,6 +4,7 @@ using UnityEngine;
 using ntDev;
 using TMPro;
 using UnityEngine.UI;
+using UnityEngine.PlayerLoop;
 
 public class PopupInGame : MonoBehaviour
 {
@@ -15,10 +16,16 @@ public class PopupInGame : MonoBehaviour
     [SerializeField] private Image imgProgress;
     [SerializeField] Animator animBtnUseEffect;
     [SerializeField] List<GameObject> listHeart;
+    [SerializeField] EasyTouch touchBack;
+    [SerializeField] EasyTouch touchForward;
+
+    [SerializeField] ButtonMove btnBack;
+    [SerializeField] ButtonMove btnForward;
     public bool canPlay;
 
     public Transform coinUIPosition;
     public Transform energyUIPosition;
+    [SerializeField] LogicPlayer player;
 
     private void Awake()
     {
@@ -36,6 +43,7 @@ public class PopupInGame : MonoBehaviour
 
         ManagerEvent.RegEvent(EventCMD.EVENT_LOSE, ShowPopupLose);
         ManagerEvent.RegEvent(EventCMD.EVENT_LOSE_HEART, DecreaseHeart);
+
     }
 
     void ShowMenu()
@@ -63,6 +71,30 @@ public class PopupInGame : MonoBehaviour
             if (canPlay) StartCoroutine(PlayAnimHide());
         }
         txtTimeCountDown.text = Mathf.RoundToInt(timeCountDownEffect).ToString();
+
+
+    }
+
+    private void FixedUpdate()
+    {
+        ////if (btnBack.isPressing)
+        ////{
+        ////    player.MoveBack();
+        ////}
+
+        ////if (btnForward.isPressing)
+        ////{
+        ////    player.MoveForward();
+        ////}
+        //Debug.Log(player.isMoving);
+
+        //if (btnForward.isPressing || btnBack.isPressing)
+        //{
+        //    player.isMoving = true;
+
+        //    if (btnBack.isPressing) player.MoveBack();
+        //    else if (btnForward.isPressing) player.MoveForward();
+        //}
     }
 
 

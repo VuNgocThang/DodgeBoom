@@ -6,7 +6,6 @@ using UnityEditor;
 using TMPro;
 using System.Collections;
 using BaseGame;
-using Unity.VisualScripting;
 
 // by nt.Dev93
 namespace ntDev
