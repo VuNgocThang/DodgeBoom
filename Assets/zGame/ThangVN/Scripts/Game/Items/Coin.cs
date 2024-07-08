@@ -47,7 +47,7 @@ public class Coin : MonoBehaviour
 
     IEnumerator ReturnFalse()
     {
-        yield return new WaitForSeconds(5f);
+        yield return new WaitForSeconds(10f);
 
         if (!LogicGame.Instance.isUseMagnet)
             gameObject.SetActive(false);

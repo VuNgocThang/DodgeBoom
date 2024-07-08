@@ -24,7 +24,7 @@ public class LogicGame : MonoBehaviour
 {
     public static LogicGame Instance;
     public LogicPlayer player;
-  
+
     [SerializeField] float timeSpawn = -1f;
     [SerializeField] List<ListSpawnPos> listContaineListSpawn;
     [SerializeField] CustomPoolController poolManager;
@@ -62,8 +62,10 @@ public class LogicGame : MonoBehaviour
 
     private void Start()
     {
+        Application.targetFrameRate = 60;
         timerCount = 0f;
-        timeSpawnItem = 25f;
+        timeSpawnItem = 5f;
+        //timeSpawnItem = 25f;
         singleBoomPool = new CustomPool<ParticleSystem>(singleBoomPrefab, 5, holderParticles, false);
         bigBoomPool = new CustomPool<ParticleSystem>(bigBoomPrefab, 5, holderParticles, false);
         fireBoomPool = new CustomPool<ParticleSystem>(fireBoomPrefab, 5, holderParticles, false);
@@ -71,7 +73,7 @@ public class LogicGame : MonoBehaviour
         isPauseGame = false;
     }
 
-  
+
 
     private void Update()
     {
@@ -140,11 +142,14 @@ public class LogicGame : MonoBehaviour
         if (timeUseMagnet > 0f)
         {
             timeUseMagnet -= Time.deltaTime;
+            isUseMagnet = true;
             player.magnet.SetActive(true);
         }
         else
         {
             timeUseMagnet = 0f;
+            isUseMagnet = false;
+
             player.magnet.SetActive(false);
         }
     }
@@ -154,9 +159,9 @@ public class LogicGame : MonoBehaviour
         if (timeSpawnItem > 0f) timeSpawnItem -= Time.deltaTime;
         else
         {
-            timeSpawnItem = UnityEngine.Random.Range(25f, 30f);
-            //timeSpawnItem = 5f;
-            int index = UnityEngine.Random.Range(0, 3);
+            //timeSpawnItem = UnityEngine.Random.Range(25f, 30f);
+            timeSpawnItem = 5f;
+            int index = UnityEngine.Random.Range(0, 1);
             //int index = UnityEngine.Random.Range(2, 3);
             SelectItemSpawn(index);
         }
@@ -293,15 +298,6 @@ public class LogicGame : MonoBehaviour
     {
         return ((layerMask.value & (1 << obj.layer)) > 0);
     }
-
-    IEnumerator UseMagnet()
-    {
-        isUseMagnet = true;
-        yield return new WaitForSeconds(7f);
-        isUseMagnet = false;
-    }
-
-
 
 
 }
